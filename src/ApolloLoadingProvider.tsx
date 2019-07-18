@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo-hooks';
 import { Observable } from 'apollo-client/util/Observable';
 
 export const LoadingProvider: React.FC<{}> = ({ children }) => {
@@ -15,9 +15,5 @@ export const LoadingProvider: React.FC<{}> = ({ children }) => {
     cache: new InMemoryCache(),
   });
 
-  return (
-    <ApolloProvider client={client}>
-      {children}
-    </ApolloProvider>
-  );
+  return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };

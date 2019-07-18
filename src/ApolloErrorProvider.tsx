@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo-hooks';
 import { Observable } from 'apollo-client/util/Observable';
 import { GraphQLError } from 'graphql';
 
@@ -10,12 +10,15 @@ export interface ErrorProviderProps {
   graphQLErrors: ReadonlyArray<GraphQLError>;
 }
 
-export const ErrorProvider: React.FC<ErrorProviderProps> = ({ children, graphQLErrors }) => {
+export const ErrorProvider: React.FC<ErrorProviderProps> = ({
+  children,
+  graphQLErrors,
+}) => {
   const link = new ApolloLink(() => {
-    return new Observable((observer) => {
+    return new Observable(observer => {
       observer.next({
         errors: graphQLErrors || [
-          {message: 'Unspecified error from ErrorProvider.'},
+          { message: 'Unspecified error from ErrorProvider.' },
         ],
       });
       observer.complete();
@@ -27,9 +30,5 @@ export const ErrorProvider: React.FC<ErrorProviderProps> = ({ children, graphQLE
     cache: new InMemoryCache(),
   });
 
-  return (
-    <ApolloProvider client={client}>
-      {children}
-    </ApolloProvider>
-  );
+  return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
