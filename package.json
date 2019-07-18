@@ -1,6 +1,6 @@
 {
   "name": "apollo-mocked",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "dist/index.js",
   "umd:main": "dist/apollo-mocked.umd.production.js",
   "module": "dist/apollo-mocked.es.production.js",
