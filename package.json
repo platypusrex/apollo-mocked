@@ -1,15 +1,17 @@
 {
   "name": "apollo-mocked",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "dist/index.js",
   "umd:main": "dist/apollo-mocked.umd.production.js",
-  "module": "dist/apollo-mocked.esm.js",
+  "module": "dist/apollo-mocked.es.production.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsc"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --env=jsdom"
   },
   "peerDependencies": {
     "react": ">=16"
