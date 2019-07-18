@@ -5,7 +5,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo-hooks';
 import { addMockFunctionsToSchema, IMockOptions } from 'graphql-tools';
 
-export const MockingProvider: React.FC<IMockOptions> = ({
+export const ApolloMockingProvider: React.FC<IMockOptions> = ({
   schema,
   children,
   ...mockOptions

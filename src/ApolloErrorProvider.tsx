@@ -10,7 +10,7 @@ export interface ErrorProviderProps {
   graphQLErrors: ReadonlyArray<GraphQLError>;
 }
 
-export const ErrorProvider: React.FC<ErrorProviderProps> = ({
+export const ApolloErrorProvider: React.FC<ErrorProviderProps> = ({
   children,
   graphQLErrors,
 }) => {
