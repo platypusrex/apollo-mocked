@@ -1,3 +1,3 @@
-export * from 'ApolloMockingProvider';
-export * from 'ApolloLoadingProvider';
-export * from 'ApolloErrorProvider';
+export * from './ApolloMockingProvider';
+export * from './ApolloLoadingProvider';
+export * from './ApolloErrorProvider';
