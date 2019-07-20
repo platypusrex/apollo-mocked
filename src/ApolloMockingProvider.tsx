@@ -5,29 +5,29 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo-hooks';
 import {
   buildClientSchema,
-  IntrospectionNamedTypeRef,
-  IntrospectionObjectType,
-  IntrospectionQuery,
+  // IntrospectionNamedTypeRef,
+  // IntrospectionObjectType,
+  // IntrospectionQuery,
 } from 'graphql';
 import { addMockFunctionsToSchema, IMockOptions } from 'graphql-tools';
-import Maybe from 'graphql/tsutils/Maybe';
+// import Maybe from 'graphql/tsutils/Maybe';
 
 type MockOptions = Omit<IMockOptions, 'schema'>;
-type QueryType = Omit<
-  IntrospectionNamedTypeRef<IntrospectionObjectType>,
-  'kind'
->;
-type MutationType = Omit<
-  Maybe<IntrospectionNamedTypeRef<IntrospectionObjectType>>,
-  'kind'
->;
-type IntrospectionResult = Omit<
-  IntrospectionQuery,
-  'queryType' | 'mutationType'
-> & {
-  queryType: QueryType;
-  mutationType: MutationType;
-};
+// type QueryType = Omit<
+//   IntrospectionNamedTypeRef<IntrospectionObjectType>,
+//   'kind'
+// >;
+// type MutationType = Omit<
+//   Maybe<IntrospectionNamedTypeRef<IntrospectionObjectType>>,
+//   'kind'
+// >;
+// type IntrospectionResult = Omit<
+//   IntrospectionQuery,
+//   'queryType' | 'mutationType'
+// > & {
+//   queryType: QueryType;
+//   mutationType: MutationType;
+// };
 
 interface ApolloMockingProviderProps extends MockOptions {
   introspectionResult: any;
