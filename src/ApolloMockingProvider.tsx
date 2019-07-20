@@ -30,7 +30,7 @@ type IntrospectionResult = Omit<
 };
 
 interface ApolloMockingProviderProps extends MockOptions {
-  introspectionResult: IntrospectionResult;
+  introspectionResult: any;
 }
 
 export const ApolloMockingProvider: React.FC<ApolloMockingProviderProps> = ({
