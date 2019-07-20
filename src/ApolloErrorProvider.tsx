@@ -7,19 +7,17 @@ import { Observable } from 'apollo-client/util/Observable';
 import { GraphQLError } from 'graphql';
 
 export interface ErrorProviderProps {
-  graphQLErrors: ReadonlyArray<GraphQLError>;
+  errorMessages?: string | string[];
 }
 
 export const ApolloErrorProvider: React.FC<ErrorProviderProps> = ({
   children,
-  graphQLErrors,
+  errorMessages,
 }) => {
   const link = new ApolloLink(() => {
     return new Observable(observer => {
       observer.next({
-        errors: graphQLErrors || [
-          { message: 'Unspecified error from ErrorProvider.' },
-        ],
+        errors: createGraphQLErrorMessage(errorMessages),
       });
       observer.complete();
     });
@@ -32,3 +30,15 @@ export const ApolloErrorProvider: React.FC<ErrorProviderProps> = ({
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
+
+function createGraphQLErrorMessage(
+  messages?: string | string[]
+): GraphQLError[] {
+  if (!messages) {
+    return [new GraphQLError('Unspecified error from ErrorProvider.')];
+  }
+
+  const errorMessages = Array.isArray(messages) ? [...messages] : [messages];
+
+  return errorMessages.map(message => new GraphQLError(message));
+}
