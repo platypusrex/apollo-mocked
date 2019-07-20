@@ -3,25 +3,21 @@ import ApolloClient from 'apollo-client';
 import SchemaLink from 'apollo-link-schema';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo-hooks';
-import {
-  addMockFunctionsToSchema,
-  IMockOptions,
-  ITypeDefinitions,
-  makeExecutableSchema,
-} from 'graphql-tools';
+import { buildClientSchema, IntrospectionQuery } from 'graphql';
+import { addMockFunctionsToSchema, IMockOptions } from 'graphql-tools';
 
 type MockOptions = Omit<IMockOptions, 'schema'>;
 
 interface ApolloMockingProviderProps extends MockOptions {
-  typeDefs: ITypeDefinitions;
+  introspectionResult: IntrospectionQuery;
 }
 
 export const ApolloMockingProvider: React.FC<ApolloMockingProviderProps> = ({
-  typeDefs,
+  introspectionResult,
   children,
   ...mockOptions
 }) => {
-  const schema = makeExecutableSchema({ typeDefs });
+  const schema = buildClientSchema(introspectionResult);
   addMockFunctionsToSchema({ schema, ...mockOptions });
 
   const client = new ApolloClient({
