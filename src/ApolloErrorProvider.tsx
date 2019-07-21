@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo-hooks';
 import { Observable } from 'apollo-client/util/Observable';
 import { GraphQLError } from 'graphql';
 
