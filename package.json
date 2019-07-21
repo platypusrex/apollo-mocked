@@ -1,6 +1,6 @@
 {
   "name": "apollo-mocked",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "main": "dist/index.js",
   "umd:main": "dist/apollo-mocked.umd.production.js",
   "module": "dist/apollo-mocked.es.production.js",
@@ -49,6 +49,7 @@
     "apollo-link-schema": "^1.2.3",
     "graphql": "^14.4.2",
     "graphql-tools": "^4.0.5",
+    "react-apollo": "^2.5.8",
     "react-apollo-hooks": "^0.5.0"
   }
 }
