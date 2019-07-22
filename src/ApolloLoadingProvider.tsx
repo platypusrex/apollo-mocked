@@ -1,17 +1,12 @@
 import * as React from 'react';
 import { ApolloClient } from 'apollo-client';
-import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from 'react-apollo-hooks';
-import { Observable } from 'apollo-client/util/Observable';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { createLoadingLink } from 'utils';
 
 export const ApolloLoadingProvider: React.FC<{}> = ({ children }) => {
-  const link = new ApolloLink(() => {
-    return new Observable(() => {});
-  });
-
   const client = new ApolloClient({
-    link,
+    link: createLoadingLink(),
     cache: new InMemoryCache(),
   });
 
