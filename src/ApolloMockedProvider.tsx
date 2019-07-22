@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { IMocks, ITypeDefinitions } from 'graphql-tools';
-import { createApolloClient } from 'utils';
+import { createApolloClient } from './utils';
 
 interface ApolloMockedProviderProps {
   mocks: IMocks;
