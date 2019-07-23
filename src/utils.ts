@@ -159,7 +159,7 @@ export function createApolloClient({
   const cache = new InMemoryCache(cacheOptions);
 
   return new ApolloClient({
-    addTypename: true,
+    addTypename: false,
     cache,
     link: ApolloLink.from([
       ...links(cache),
