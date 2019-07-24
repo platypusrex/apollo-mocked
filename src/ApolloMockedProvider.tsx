@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { IMocks, ITypeDefinitions } from 'graphql-tools';
+import { IMocks } from 'graphql-tools';
+import { GraphQLSchema } from 'graphql';
 import { createApolloClient } from './utils';
 
-interface ApolloMockedProviderProps {
+export interface ApolloMockedProviderProps {
   mocks: IMocks;
-  typeDefs: ITypeDefinitions;
+  introspectionResult: GraphQLSchema;
 }
 
 export const ApolloMockedProvider: React.FC<ApolloMockedProviderProps> = ({
   mocks,
-  typeDefs,
+  introspectionResult,
   children,
 }) => {
-  const client = createApolloClient({ mocks, typeDefs });
+  const client = createApolloClient({ mocks, introspectionResult });
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
