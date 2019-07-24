@@ -6,6 +6,7 @@ import {
   graphql,
   GraphQLError,
   GraphQLSchema,
+  IntrospectionQuery,
   introspectionQuery,
   print,
   printSchema,
@@ -111,7 +112,7 @@ export function createLoadingLink(): ApolloLink {
 }
 
 interface CreateApolloClient {
-  introspectionResult: GraphQLSchema;
+  introspectionResult: IntrospectionQuery;
   mocks: IMocks;
   typeResolvers?: IResolvers;
   rootValue?: any;
