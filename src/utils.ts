@@ -11,12 +11,10 @@ import {
   printSchema,
 } from 'graphql';
 import {
-  makeExecutableSchema,
   addMockFunctionsToSchema,
   addResolveFunctionsToSchema,
   ITypeDefinitions,
   IMocks,
-  IResolverValidationOptions,
   IResolvers,
 } from 'graphql-tools';
 
@@ -113,9 +111,8 @@ export function createLoadingLink(): ApolloLink {
 }
 
 interface CreateApolloClient {
-  typeDefs: ITypeDefinitions;
+  introspectionResult: GraphQLSchema;
   mocks: IMocks;
-  resolverValidationOptions?: IResolverValidationOptions;
   typeResolvers?: IResolvers;
   rootValue?: any;
   context?: any;
@@ -126,9 +123,8 @@ interface CreateApolloClient {
 }
 
 export function createApolloClient({
-  typeDefs,
+  introspectionResult,
   mocks,
-  resolverValidationOptions,
   typeResolvers,
   rootValue = {},
   context = {},
@@ -139,7 +135,7 @@ export function createApolloClient({
     return [];
   },
 }: CreateApolloClient) {
-  const schema = makeExecutableSchema({ typeDefs, resolverValidationOptions });
+  const schema = buildClientSchema(introspectionResult as any);
 
   let mockOptions: any = { schema };
 
