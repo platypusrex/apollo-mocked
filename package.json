@@ -1,6 +1,6 @@
 {
   "name": "apollo-mocked",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "main": "dist/index.js",
   "umd:main": "dist/apollo-mocked.umd.production.js",
   "module": "dist/apollo-mocked.es.production.js",
@@ -29,10 +29,10 @@
   },
   "devDependencies": {
     "@types/graphql": "^14.2.3",
-    "@types/jest": "^24.0.15",
-    "@types/react": "^16.8.23",
+    "@types/jest": "^24.0.17",
+    "@types/react": "^16.8.25",
     "@types/react-dom": "^16.8.5",
-    "husky": "^3.0.1",
+    "husky": "^3.0.3",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
     "react": "^16.8.6",
@@ -42,7 +42,7 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "@apollo/react-hooks": "^0.1.0-beta.11",
+    "@apollo/react-hooks": "^3.0.0",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.6.3",
     "graphql": "^14.4.2",
