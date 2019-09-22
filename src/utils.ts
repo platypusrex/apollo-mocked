@@ -185,9 +185,9 @@ export function createGraphQLErrorMessage(
 }
 
 interface CreateMocksOptions {
-  variables: Record<string, any>;
   data: { [key: string]: any };
-  delay: number;
+  variables?: Record<string, any>;
+  delay?: number;
 }
 
 export const createMocks = (
