@@ -1,6 +1,6 @@
 {
   "name": "apollo-mocked",
-  "version": "0.2.17",
+  "version": "0.2.18",
   "main": "dist/index.js",
   "umd:main": "dist/apollo-mocked.umd.production.js",
   "module": "dist/apollo-mocked.es.production.js",
@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.1",
+    "@apollo/react-testing": "^3.1.1",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
     "graphql": "^14.5.7",

@@ -1,6 +1,7 @@
 import ApolloClient from 'apollo-client';
 import { InMemoryCache, InMemoryCacheConfig } from 'apollo-cache-inmemory';
-import { ApolloLink, Observable } from 'apollo-link';
+import { ApolloLink, DocumentNode, Observable } from 'apollo-link';
+import { MockedResponse, MockLink } from '@apollo/react-testing';
 import {
   buildClientSchema,
   graphql,
@@ -112,8 +113,8 @@ export function createLoadingLink(): ApolloLink {
 }
 
 interface CreateApolloClient {
-  introspectionResult: IntrospectionQuery;
-  mocks: IMocks;
+  mocks: IMocks | ReadonlyArray<MockedResponse>;
+  introspectionResult?: IntrospectionQuery;
   typeResolvers?: IResolvers;
   rootValue?: any;
   context?: any;
@@ -124,8 +125,8 @@ interface CreateApolloClient {
 }
 
 export function createApolloClient({
-  introspectionResult,
   mocks,
+  introspectionResult,
   typeResolvers,
   rootValue = {},
   context = {},
@@ -136,21 +137,29 @@ export function createApolloClient({
     return [];
   },
 }: CreateApolloClient) {
-  const schema = buildClientSchema(introspectionResult as any);
+  let mockLink;
 
-  let mockOptions: any = { schema };
+  if (introspectionResult) {
+    const schema = buildClientSchema(introspectionResult as any);
 
-  if (!!mocks) {
-    mockOptions = {
-      ...mockOptions,
-      mocks,
-    };
+    let mockOptions: any = { schema };
 
-    addMockFunctionsToSchema(mockOptions);
-  }
+    if (!!mocks) {
+      mockOptions = {
+        ...mockOptions,
+        mocks,
+      };
 
-  if (!!typeResolvers) {
-    addResolveFunctionsToSchema({ schema, resolvers: typeResolvers });
+      addMockFunctionsToSchema(mockOptions);
+    }
+
+    if (!!typeResolvers) {
+      addResolveFunctionsToSchema({ schema, resolvers: typeResolvers });
+    }
+
+    mockLink = createMockLink(schema, rootValue, context, apolloLinkOptions);
+  } else {
+    mockLink = new MockLink(mocks as MockedResponse[]);
   }
 
   const cache = new InMemoryCache(cacheOptions);
@@ -158,10 +167,7 @@ export function createApolloClient({
   return new ApolloClient({
     addTypename: false,
     cache,
-    link: ApolloLink.from([
-      ...links(cache),
-      createMockLink(schema, rootValue, context, apolloLinkOptions),
-    ]),
+    link: ApolloLink.from([...links(cache), mockLink]),
     ...apolloClientOptions,
   });
 }
@@ -177,3 +183,23 @@ export function createGraphQLErrorMessage(
 
   return errorMessages.map(message => new GraphQLError(message));
 }
+
+interface CreateMocksOptions {
+  variables: Record<string, any>;
+  data: { [key: string]: any };
+  delay: number;
+}
+
+export const createMocks = (
+  query: DocumentNode,
+  { variables, data, delay = 200 }: CreateMocksOptions
+) => [
+  {
+    request: {
+      query,
+      variables,
+    },
+    result: { data },
+    delay,
+  },
+];
