@@ -75,7 +75,7 @@ function createMockLink(
   context = {},
   options: CreateLinkOptions = {}
 ): ApolloLink {
-  const delayMs = (options && options.delay) || 300;
+  const delayMs = (options && options.delay) || 200;
 
   return new ApolloLink(operation => {
     return new Observable(observer => {
@@ -203,16 +203,21 @@ export function createGraphQLErrorMessage(
   return errorMessages.map(message => new GraphQLError(message));
 }
 
-interface CreateMocksOptions {
-  data: { [key: string]: any };
-  variables?: Record<string, any>;
+interface CreateMocksOptions<TData, TVariables> {
+  data: TData;
+  variables?: TVariables;
   newData?: ResultFunction<FetchResult>;
   delay?: number;
 }
 
-export function createMocks(
+export function createMocks<TData, TVariables>(
   query: DocumentNode,
-  { variables, data, newData, delay = 200 }: CreateMocksOptions
+  {
+    variables,
+    data,
+    newData,
+    delay = 200,
+  }: CreateMocksOptions<TData, TVariables>
 ): MockedResponse[] {
   return [
     {
