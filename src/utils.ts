@@ -1,7 +1,15 @@
-import ApolloClient from 'apollo-client';
-import { InMemoryCache, InMemoryCacheConfig } from 'apollo-cache-inmemory';
-import { ApolloLink, DocumentNode, Observable } from 'apollo-link';
-import { MockedResponse, MockLink } from '@apollo/react-testing';
+import ApolloClient, { ApolloClientOptions } from 'apollo-client';
+import {
+  InMemoryCache,
+  InMemoryCacheConfig,
+  NormalizedCacheObject,
+} from 'apollo-cache-inmemory';
+import { ApolloLink, DocumentNode, Observable, FetchResult } from 'apollo-link';
+import {
+  MockedResponse,
+  MockLink,
+  ResultFunction,
+} from '@apollo/react-testing';
 import {
   buildClientSchema,
   graphql,
@@ -58,7 +66,7 @@ function delay(ms: number): Promise<{}> {
 }
 
 interface CreateLinkOptions {
-  delayMs?: number;
+  delay?: number;
 }
 
 function createMockLink(
@@ -67,7 +75,8 @@ function createMockLink(
   context = {},
   options: CreateLinkOptions = {}
 ): ApolloLink {
-  const delayMs = (options && options.delayMs) || 300;
+  const delayMs = (options && options.delay) || 300;
+
   return new ApolloLink(operation => {
     return new Observable(observer => {
       const { query, operationName, variables } = operation;
@@ -112,63 +121,73 @@ export function createLoadingLink(): ApolloLink {
   });
 }
 
-interface CreateApolloClient {
-  mocks: IMocks | ReadonlyArray<MockedResponse>;
-  introspectionResult?: IntrospectionQuery;
+export interface LinkSchemaProps extends CreateLinkOptions {
+  resolvers: IMocks;
+  introspectionResult: IntrospectionQuery | any;
   typeResolvers?: IResolvers;
   rootValue?: any;
   context?: any;
+}
+
+interface CreateApolloClient {
+  mocks: ReadonlyArray<MockedResponse> | LinkSchemaProps;
   cacheOptions?: InMemoryCacheConfig;
-  apolloClientOptions?: any;
-  apolloLinkOptions?: CreateLinkOptions;
+  clientOptions?: ApolloClientOptions<NormalizedCacheObject>;
   links?: (cache?: InMemoryCache) => ApolloLink[] | ApolloLink[];
+  addTypename?: boolean;
 }
 
 export function createApolloClient({
   mocks,
-  introspectionResult,
-  typeResolvers,
-  rootValue = {},
-  context = {},
   cacheOptions = {},
-  apolloClientOptions = {},
-  apolloLinkOptions = {},
+  clientOptions = {} as any,
   links = () => {
     return [];
   },
+  addTypename = false,
 }: CreateApolloClient) {
   let mockLink;
 
-  if (introspectionResult) {
-    const schema = buildClientSchema(introspectionResult as any);
+  if (!Array.isArray(mocks)) {
+    const apolloLinkOptions: CreateLinkOptions = {};
+    const {
+      resolvers,
+      introspectionResult,
+      typeResolvers,
+      rootValue,
+      context,
+      delay,
+    } = mocks as LinkSchemaProps;
 
+    const schema = buildClientSchema(introspectionResult as any);
     let mockOptions: any = { schema };
 
-    if (!!mocks) {
-      mockOptions = {
-        ...mockOptions,
-        mocks,
-      };
+    mockOptions = {
+      ...mockOptions,
+      mocks: resolvers,
+    };
 
-      addMockFunctionsToSchema(mockOptions);
-    }
+    addMockFunctionsToSchema(mockOptions);
 
     if (!!typeResolvers) {
       addResolveFunctionsToSchema({ schema, resolvers: typeResolvers });
     }
 
+    if (delay) {
+      apolloLinkOptions.delay = delay;
+    }
+
     mockLink = createMockLink(schema, rootValue, context, apolloLinkOptions);
   } else {
-    mockLink = new MockLink(mocks as MockedResponse[]);
+    mockLink = new MockLink(mocks as MockedResponse[], addTypename);
   }
 
-  const cache = new InMemoryCache(cacheOptions);
+  const cache = new InMemoryCache({ ...cacheOptions, addTypename });
 
   return new ApolloClient({
-    addTypename: false,
     cache,
     link: ApolloLink.from([...links(cache), mockLink]),
-    ...apolloClientOptions,
+    ...clientOptions,
   });
 }
 
@@ -187,19 +206,23 @@ export function createGraphQLErrorMessage(
 interface CreateMocksOptions {
   data: { [key: string]: any };
   variables?: Record<string, any>;
+  newData?: ResultFunction<FetchResult>;
   delay?: number;
 }
 
-export const createMocks = (
+export function createMocks(
   query: DocumentNode,
-  { variables, data, delay = 200 }: CreateMocksOptions
-) => [
-  {
-    request: {
-      query,
-      variables,
+  { variables, data, newData, delay = 200 }: CreateMocksOptions
+): MockedResponse[] {
+  return [
+    {
+      request: {
+        query,
+        variables,
+      },
+      result: { data },
+      newData,
+      delay,
     },
-    result: { data },
-    delay,
-  },
-];
+  ];
+}
