@@ -8,18 +8,20 @@ import {
 import { ApolloClientOptions } from 'apollo-client';
 import { createApolloClient, LinkSchemaProps } from './utils';
 
-interface ApolloMockedProviderProps {
+export interface ApolloMockedProviderProps {
   mocks: ReadonlyArray<MockedResponse> | LinkSchemaProps;
   addTypename?: boolean;
   cacheOptions?: InMemoryCacheConfig;
   clientOptions?: ApolloClientOptions<NormalizedCacheObject>;
+  Provider?: React.ComponentType;
 }
 
 export const ApolloMockedProvider: React.FC<ApolloMockedProviderProps> = ({
   children,
+  Provider = ApolloProvider,
   ...rest
 }) => {
   const client = createApolloClient(rest);
 
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+  return <Provider client={client}>{children}</Provider>;
 };
