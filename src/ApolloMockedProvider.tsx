@@ -8,7 +8,7 @@ import {
 import { ApolloClientOptions } from 'apollo-client';
 import { createApolloClient, LinkSchemaProps } from './utils';
 
-interface ApolloMockedProviderProps {
+export interface ApolloMockedProviderProps {
   mocks: ReadonlyArray<MockedResponse> | LinkSchemaProps;
   addTypename?: boolean;
   cacheOptions?: InMemoryCacheConfig;
