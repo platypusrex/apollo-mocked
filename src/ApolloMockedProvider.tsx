@@ -13,13 +13,15 @@ interface ApolloMockedProviderProps {
   addTypename?: boolean;
   cacheOptions?: InMemoryCacheConfig;
   clientOptions?: ApolloClientOptions<NormalizedCacheObject>;
+  Provider?: React.FC;
 }
 
 export const ApolloMockedProvider: React.FC<ApolloMockedProviderProps> = ({
   children,
+  Provider = ApolloProvider,
   ...rest
 }) => {
   const client = createApolloClient(rest);
 
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+  return <Provider client={client}>{children}</Provider>;
 };

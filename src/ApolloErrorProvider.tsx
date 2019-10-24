@@ -6,16 +6,18 @@ import { createErrorLink } from './utils';
 
 export interface ApolloErrorProviderProps {
   errorMessages?: string | string[];
+  Provider?: React.FC;
 }
 
 export const ApolloErrorProvider: React.FC<ApolloErrorProviderProps> = ({
   children,
   errorMessages,
+  Provider = ApolloProvider,
 }) => {
   const client = new ApolloClient({
     link: createErrorLink(errorMessages),
     cache: new InMemoryCache(),
   });
 
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+  return <Provider client={client}>{children}</Provider>;
 };

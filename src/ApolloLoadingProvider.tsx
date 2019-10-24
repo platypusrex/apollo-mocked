@@ -4,11 +4,18 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { createLoadingLink } from './utils';
 
-export const ApolloLoadingProvider: React.FC<{}> = ({ children }) => {
+export interface ApolloLoadingProviderProps {
+  Provider?: React.FC;
+}
+
+export const ApolloLoadingProvider: React.FC<ApolloLoadingProviderProps> = ({
+  Provider = ApolloProvider,
+  children,
+}) => {
   const client = new ApolloClient({
     link: createLoadingLink(),
     cache: new InMemoryCache(),
   });
 
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+  return <Provider client={client}>{children}</Provider>;
 };
