@@ -6,7 +6,7 @@ import { createErrorLink } from './utils';
 
 export interface ApolloErrorProviderProps {
   errorMessages?: string | string[];
-  Provider?: React.FC;
+  Provider?: React.ComponentType;
 }
 
 export const ApolloErrorProvider: React.FC<ApolloErrorProviderProps> = ({

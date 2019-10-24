@@ -13,7 +13,7 @@ interface ApolloMockedProviderProps {
   addTypename?: boolean;
   cacheOptions?: InMemoryCacheConfig;
   clientOptions?: ApolloClientOptions<NormalizedCacheObject>;
-  Provider?: React.FC;
+  Provider?: React.ComponentType;
 }
 
 export const ApolloMockedProvider: React.FC<ApolloMockedProviderProps> = ({
