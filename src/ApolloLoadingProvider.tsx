@@ -5,7 +5,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { createLoadingLink } from './utils';
 
 export interface ApolloLoadingProviderProps {
-  Provider?: React.ComponentType;
+  Provider?: React.ComponentType<any>;
 }
 
 export const ApolloLoadingProvider: React.FC<ApolloLoadingProviderProps> = ({
