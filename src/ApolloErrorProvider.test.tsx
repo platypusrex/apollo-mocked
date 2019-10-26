@@ -7,7 +7,7 @@ describe('ApolloErrorProvider', () => {
   it('should render the error view', () => {
     const { getByText } = render(
       <ApolloErrorProvider>
-        <TestComponent name="Bilbo" />
+        <TestComponent name="Buck" />
       </ApolloErrorProvider>
     );
 

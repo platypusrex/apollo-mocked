@@ -5,13 +5,13 @@ import { ApolloLoadingProvider } from './ApolloLoadingProvider';
 
 describe('ApolloLoadingProvider', () => {
   it('should render the loading view', () => {
-    wait(() => {
-      const { getByText } = render(
-        <ApolloLoadingProvider>
-          <TestComponent name="Buck" />
-        </ApolloLoadingProvider>
-      );
+    const { getByText } = render(
+      <ApolloLoadingProvider>
+        <TestComponent name="Buck" />
+      </ApolloLoadingProvider>
+    );
 
+    wait(() => {
       expect(getByText('Loading...')).toBeTruthy();
     });
   });
