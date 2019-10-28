@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, wait } from '@testing-library/react';
-import { TestComponent } from '../test/TestComponent';
-import { ApolloErrorProvider } from './ApolloErrorProvider';
+import { Component } from './Component';
+import { ApolloErrorProvider } from '../src/ApolloErrorProvider';
 
 describe('ApolloErrorProvider', () => {
   it('should render the error view', () => {
     const { getByText } = render(
       <ApolloErrorProvider>
-        <TestComponent name="Buck" />
+        <Component name="Buck" />
       </ApolloErrorProvider>
     );
 

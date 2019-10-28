@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, wait } from '@testing-library/react';
-import { ApolloMockedProvider } from './ApolloMockedProvider';
-import { TestComponent, GET_DOG_QUERY } from '../test/TestComponent';
+import { ApolloMockedProvider } from '../src/ApolloMockedProvider';
+import { Component, GET_DOG_QUERY } from './Component';
 
 describe('ApolloMockedProvider', () => {
   const name = 'Buck';
@@ -27,7 +27,7 @@ describe('ApolloMockedProvider', () => {
     wait(() => {
       const { getByText } = render(
         <ApolloMockedProvider mocks={mocks}>
-          <TestComponent name={name} />
+          <Component name={name} />
         </ApolloMockedProvider>
       );
 
@@ -38,7 +38,7 @@ describe('ApolloMockedProvider', () => {
   it('should render the requested data', () => {
     const { getByText } = render(
       <ApolloMockedProvider mocks={mocks}>
-        <TestComponent name={name} />
+        <Component name={name} />
       </ApolloMockedProvider>
     );
 
@@ -50,7 +50,7 @@ describe('ApolloMockedProvider', () => {
   it('should render the error view', () => {
     const { getByText } = render(
       <ApolloMockedProvider mocks={mocks}>
-        <TestComponent name="Bilbo" />
+        <Component name="Bilbo" />
       </ApolloMockedProvider>
     );
 

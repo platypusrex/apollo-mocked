@@ -12,11 +12,11 @@ export const GET_DOG_QUERY = gql`
   }
 `;
 
-export interface TestComponent {
+export interface ComponentProps {
   name: string;
 }
 
-export const TestComponent: React.FC<TestComponent> = ({ name }) => {
+export const Component: React.FC<ComponentProps> = ({ name }) => {
   const { data, loading, error } = useQuery(GET_DOG_QUERY, { variables: name });
 
   if (loading) return <p>Loading...</p>;
