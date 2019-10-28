@@ -9,10 +9,10 @@ import { ApolloClientOptions } from 'apollo-client';
 import { createApolloClient, LinkSchemaProps } from './utils';
 
 export interface ApolloMockedProviderProps {
+  mocks: ReadonlyArray<MockedResponse> | LinkSchemaProps;
   addTypename?: boolean;
   cacheOptions?: InMemoryCacheConfig;
   clientOptions?: ApolloClientOptions<NormalizedCacheObject>;
-  mocks: ReadonlyArray<MockedResponse> | LinkSchemaProps;
   Provider?: React.ComponentType<any>;
 }
 

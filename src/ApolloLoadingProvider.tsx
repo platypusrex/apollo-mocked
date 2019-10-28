@@ -9,8 +9,8 @@ export interface ApolloLoadingProviderProps {
 }
 
 export const ApolloLoadingProvider: React.FC<ApolloLoadingProviderProps> = ({
-  children,
   Provider = ApolloProvider,
+  children,
 }) => {
   const client = new ApolloClient({
     link: createLoadingLink(),
