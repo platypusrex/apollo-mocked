@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, wait } from '@testing-library/react';
-import { TestComponent } from '../test/TestComponent';
-import { ApolloLoadingProvider } from './ApolloLoadingProvider';
+import { Component } from './Component';
+import { ApolloLoadingProvider } from '../src/ApolloLoadingProvider';
 
 describe('ApolloLoadingProvider', () => {
   it('should render the loading view', () => {
     const { getByText } = render(
       <ApolloLoadingProvider>
-        <TestComponent name="Buck" />
+        <Component name="Buck" />
       </ApolloLoadingProvider>
     );
 
