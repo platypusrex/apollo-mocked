@@ -43,7 +43,7 @@ describe('ApolloMockedProvider', () => {
     );
 
     wait(() => {
-      expect(getByText(`Buck is a ${breed}`)).toBeTruthy();
+      expect(getByText(`${name} is a ${breed}`)).toBeTruthy();
     });
   });
 
