@@ -102,7 +102,7 @@ usersStories.add('loading', () => (
 | property      | propType | required | default |
 | ------------- |----------|----------|---------|
 | Provider | `React.ComponentType<any>` | no | `<ApolloProvider />` (@apollo/react-hooks v3.1.3)|
-| errorMessages | `string` or `string[]` | no | `[new GraphQLError('Unspecified error from ErrorProvider.')]`
+| errorMessages | `string` or `string[]` | no | `[new GraphQLError('Unspecified error from ErrorProvider.')]`|
 
 ##### testing example
 ```
@@ -150,4 +150,114 @@ usersStories.add('error', () => (
 ));
 ```
 
+
 ### **```ApolloMockedProvider```**
+
+| property      | propType | required | default |
+| ------------- |----------|----------|---------|
+| Provider | `React.ComponentType<any>` | no | `<ApolloProvider />` (@apollo/react-hooks v3.1.3)|
+| addTypename | boolean | no | false |
+| cacheOptions | `InMemoryCacheConfig` | no | -- |
+| clientOptions | `ApolloClientOptions<NormalizedCacheObject>` | no | -- |
+| mocks | `ReadonlyArray<MockedResponse>` or `LinkSchemaProps` | yes | -- |
+
+```linkSchemaProps```
+
+| property      | propType | required | default |
+| ------------- |----------|----------|---------|
+| introspectionResult | `IntrospectionQuery` | yes | -- |
+| resolvers | `IMocks` | yes | -- |
+| typeResolvers | `IResolvers` | no | -- |
+
+##### mocks prop options
+- using the `MockedResponse` type
+```
+const mocks = [
+  {
+    request: {
+      query: GET_DOG_QUERY,
+      variables: {
+        name: 'Fido',
+      },
+    },
+    result: {
+      data: {
+        dog: { id: '1', name: 'Fido', breed: 'bulldog' },
+      },
+    },
+  },
+];
+```
+- using the `IMocks` type 
+
+**Note:** the `typeDefs` const below can also be a json file (result of introspecting schema)
+```
+const typeDefs = gql`
+  type Query {
+    hello: String
+    resolved: String
+  }
+`;
+
+const resolvers = {
+  Query: {
+    getDog: () => {
+      id: '1',
+      name: 'Fido',
+      breed: 'bulldog'
+    },
+  },
+};
+
+const mocks = { 
+  introspectionResult: typeDefs,
+  resolvers,
+};
+```
+
+##### testing example
+```
+import React from 'react';
+import { cleanup, render, wait } from '@testing-library/react';
+import { ApolloMockedProvider } from 'apollo-mocked';
+import { mocks } from './example-above';
+import { DogComponent } from './';
+
+describe('Dog', () => {
+  afterEach(cleanup);
+  
+  it('should render error component', async () => {
+      const dogName = 'Fido';
+
+      const { getByText } = render((
+        <ApolloMockedProvider mocks={mocks}>
+          <DogComponent name="Fido" />
+        </ApolloErrorProvider>
+      ));
+
+      await wait(() => {
+        const dogNameNode = getByText(dogName);
+        expect(dogNameNode).toBeInTheDocument();
+        expect(dogNameNode).toHaveTextContent(new RegExp(`^${dogName}$`));
+      });
+    });
+  )}
+});
+```
+
+##### storybook example
+```
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { ApolloMockedProvider } from 'apollo-mocked';
+import { mocks } from './example-above';
+import { DogComponent } from './';
+
+const usersStories = storiesOf('Dogs', module);
+
+usersStories.add('mocked', () => (
+  <ApolloMockedProvider mocks={mocks}>
+    <DogComponent name="Fido" />
+  </ApolloMockedProvider>
+));
+```
