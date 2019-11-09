@@ -1,4 +1,5 @@
 import ApolloClient, { ApolloClientOptions } from 'apollo-client';
+import fetch from 'isomorphic-unfetch';
 import {
   InMemoryCache,
   InMemoryCacheConfig,
