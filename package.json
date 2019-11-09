@@ -1,6 +1,6 @@
 {
   "name": "apollo-mocked",
-  "version": "0.2.24",
+  "version": "0.2.25",
   "main": "dist/index.js",
   "umd:main": "dist/apollo-mocked.umd.production.js",
   "module": "dist/apollo-mocked.es.production.js",
@@ -49,6 +49,7 @@
     "apollo-client": "^2.6.4",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
-    "graphql-tools": "^4.0.6"
+    "graphql-tools": "^4.0.6",
+    "isomorphic-unfetch": "^3.0.0"
   }
 }
