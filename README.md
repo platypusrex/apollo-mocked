@@ -44,6 +44,8 @@ export const DogComponent: React.FC<DogComponentProps> = ({ name }) => {
 ```
 
 ## Components
+All components take an optional `Provider` prop which will generally default to the latest `ApolloProvider` from `@apollo/react-hooks`. If your using a different version you will probably need to pass an instance of `ApolloProvider` to each component.
+
 ### **```ApolloLoadingProvider```**
 
 | property      | propType | required | default |
