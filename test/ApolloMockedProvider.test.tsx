@@ -7,23 +7,29 @@ import { createMocks } from '../src/utils';
 const name = 'Buck';
 const breed = 'bulldog';
 const mocks = createMocks(GET_DOG_QUERY, {
-  variables: { name: 'Buck' },
+  variables: {
+    name,
+  },
   data: {
-    dog: { id: '1', name, breed },
+    dog: {
+      id: 1,
+      name,
+      breed,
+    },
   },
 });
 
 describe('ApolloMockedProvider', () => {
   afterEach(cleanup);
 
-  it('should render the requested data', () => {
+  it('should render the requested data', async () => {
     const { getByText } = render(
       <ApolloMockedProvider mocks={mocks}>
         <Component name={name} />
       </ApolloMockedProvider>
     );
 
-    wait(() => {
+    await wait(() => {
       expect(getByText(`Buck is a ${breed}`)).toBeTruthy();
     });
   });

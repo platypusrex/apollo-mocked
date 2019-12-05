@@ -17,7 +17,9 @@ export interface ComponentProps {
 }
 
 export const Component: React.FC<ComponentProps> = ({ name }) => {
-  const { data, loading, error } = useQuery(GET_DOG_QUERY, { variables: name });
+  const { data, loading, error } = useQuery(GET_DOG_QUERY, {
+    variables: { name },
+  });
 
   if (loading) {
     return <p>Loading...</p>;
