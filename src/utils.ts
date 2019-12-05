@@ -101,13 +101,15 @@ function createMockLink(
   });
 }
 
-export function createErrorLink(errorMessages?: string | string[]): ApolloLink {
+export function createErrorLink(
+  graphQLError?: string | GraphQLError[]
+): ApolloLink {
   return new ApolloLink(() => {
     return new Observable(observer => {
       delay(100)
         .then(() => {
           observer.next({
-            errors: createGraphQLErrorMessage(errorMessages),
+            errors: createGraphQLErrorMessage(graphQLError),
           });
           observer.complete();
         })
@@ -193,15 +195,15 @@ export function createApolloClient({
 }
 
 export function createGraphQLErrorMessage(
-  messages?: string | string[]
+  graphQLError?: string | GraphQLError[]
 ): GraphQLError[] {
-  if (!messages) {
-    return [new GraphQLError('Unspecified error from ErrorProvider.')];
+  if (graphQLError) {
+    return typeof graphQLError === 'string'
+      ? [new GraphQLError(graphQLError)]
+      : graphQLError;
   }
 
-  const errorMessages = Array.isArray(messages) ? [...messages] : [messages];
-
-  return errorMessages.map(message => new GraphQLError(message));
+  return [new GraphQLError('Unspecified error from ErrorProvider.')];
 }
 
 interface CreateMocksOptions<TData, TVariables> {
