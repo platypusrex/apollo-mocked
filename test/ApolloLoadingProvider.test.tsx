@@ -8,7 +8,7 @@ describe('ApolloLoadingProvider', () => {
   it('should render the loading view', () => {
     const { getByText } = render(
       <ApolloLoadingProvider>
-        <Component name="Buck" />
+        <Component />
       </ApolloLoadingProvider>
     );
 

@@ -3,21 +3,16 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
 export const GET_DOG_QUERY = gql`
-  query getDog($name: String) {
-    dog(name: $name) {
-      id
+  query {
+    dog {
       name
       breed
     }
   }
 `;
 
-export interface ComponentProps {
-  name: string;
-}
-
-export const Component: React.FC<ComponentProps> = ({ name }) => {
-  const { data, loading, error } = useQuery(GET_DOG_QUERY, { variables: name });
+export const Component: React.FC = () => {
+  const { data, loading, error } = useQuery(GET_DOG_QUERY);
 
   if (loading) {
     return <p>Loading...</p>;
