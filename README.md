@@ -1,12 +1,15 @@
 # apollo-mocked
+
 A mocked ApolloProvider solution that works equally well with Storybook and unit testing react components.
 
 ## Install
-```npm install apollo-mocked```
+
+`npm install apollo-mocked`
 or
-```yarn add apollo-mocked```
+`yarn add apollo-mocked`
 
 ## Features
+
 Written in typescript, the `apollo-mocked` packages exposes 3 components for testing loading, error, and final states.<br>
 **All examples below will assume the following component:**
 
@@ -44,15 +47,17 @@ export const DogComponent: React.FC<DogComponentProps> = ({ name }) => {
 ```
 
 ## Components
+
 All components take an optional `Provider` prop which will generally default to the latest `ApolloProvider` from `@apollo/react-hooks`. If your using a different version you will probably need to pass an instance of `ApolloProvider` to each component.
 
-### **```ApolloLoadingProvider```**
+### **`ApolloLoadingProvider`**
 
-| property      | propType | required | default |
-| ------------- |----------|----------|---------|
-| Provider | `React.ComponentType<any>` | no | `<ApolloProvider />` (@apollo/react-hooks v3.1.3)|
+| property | propType                   | required | default                                           |
+| -------- | -------------------------- | -------- | ------------------------------------------------- |
+| Provider | `React.ComponentType<any>` | no       | `<ApolloProvider />` (@apollo/react-hooks v3.1.5) |
 
 ##### testing example
+
 ```
 import React from 'react';
 import { cleanup, render, wait } from '@testing-library/react';
@@ -81,6 +86,7 @@ describe('Dog', () => {
 ```
 
 ##### storybook example
+
 ```
 import React from 'react';
 import { storiesOf } from '@storybook/react';
@@ -96,15 +102,15 @@ usersStories.add('loading', () => (
 ));
 ```
 
+### **`ApolloErrorProvider`**
 
-### **```ApolloErrorProvider```**
-
-| property      | propType | required | default |
-| ------------- |----------|----------|---------|
-| Provider | `React.ComponentType<any>` | no | `<ApolloProvider />` (@apollo/react-hooks v3.1.3)|
-| errorMessages | `string` or `string[]` | no | `[new GraphQLError('Unspecified error from ErrorProvider.')]`|
+| property      | propType                   | required | default                                                       |
+| ------------- | -------------------------- | -------- | ------------------------------------------------------------- |
+| Provider      | `React.ComponentType<any>` | no       | `<ApolloProvider />` (@apollo/react-hooks v3.1.5)             |
+| errorMessages | `string` or `string[]`     | no       | `[new GraphQLError('Unspecified error from ErrorProvider.')]` |
 
 ##### testing example
+
 ```
 import React from 'react';
 import { cleanup, render, wait } from '@testing-library/react';
@@ -113,7 +119,7 @@ import { DogComponent } from './';
 
 describe('Dog', () => {
   afterEach(cleanup);
-  
+
   it('should render error component', async () => {
       const errorMessage = 'Failed to fetch dog.';
       const errorRes = `GraphQL error: ${errorMessage}`;
@@ -135,6 +141,7 @@ describe('Dog', () => {
 ```
 
 ##### storybook example
+
 ```
 import React from 'react';
 import { storiesOf } from '@storybook/react';
@@ -150,27 +157,28 @@ usersStories.add('error', () => (
 ));
 ```
 
+### **`ApolloMockedProvider`**
 
-### **```ApolloMockedProvider```**
+| property      | propType                                             | required | default                                           |
+| ------------- | ---------------------------------------------------- | -------- | ------------------------------------------------- |
+| Provider      | `React.ComponentType<any>`                           | no       | `<ApolloProvider />` (@apollo/react-hooks v3.1.5) |
+| addTypename   | boolean                                              | no       | false                                             |
+| cacheOptions  | `InMemoryCacheConfig`                                | no       | --                                                |
+| clientOptions | `ApolloClientOptions<NormalizedCacheObject>`         | no       | --                                                |
+| mocks         | `ReadonlyArray<MockedResponse>` or `LinkSchemaProps` | yes      | --                                                |
 
-| property      | propType | required | default |
-| ------------- |----------|----------|---------|
-| Provider | `React.ComponentType<any>` | no | `<ApolloProvider />` (@apollo/react-hooks v3.1.3)|
-| addTypename | boolean | no | false |
-| cacheOptions | `InMemoryCacheConfig` | no | -- |
-| clientOptions | `ApolloClientOptions<NormalizedCacheObject>` | no | -- |
-| mocks | `ReadonlyArray<MockedResponse>` or `LinkSchemaProps` | yes | -- |
+`linkSchemaProps`
 
-```linkSchemaProps```
-
-| property      | propType | required | default |
-| ------------- |----------|----------|---------|
-| introspectionResult | `IntrospectionQuery` | yes | -- |
-| resolvers | `IMocks` | yes | -- |
-| typeResolvers | `IResolvers` | no | -- |
+| property            | propType             | required | default |
+| ------------------- | -------------------- | -------- | ------- |
+| introspectionResult | `IntrospectionQuery` | yes      | --      |
+| resolvers           | `IMocks`             | yes      | --      |
+| typeResolvers       | `IResolvers`         | no       | --      |
 
 ##### mocks prop options
+
 - using the `MockedResponse` type
+
 ```
 const mocks = [
   {
@@ -188,9 +196,11 @@ const mocks = [
   },
 ];
 ```
-- using the `IMocks` type 
+
+- using the `IMocks` type
 
 **Note:** the `typeDefs` const below can also be a json file (result of introspecting schema)
+
 ```
 const typeDefs = gql`
   type Query {
@@ -209,13 +219,14 @@ const resolvers = {
   },
 };
 
-const mocks = { 
+const mocks = {
   introspectionResult: typeDefs,
   resolvers,
 };
 ```
 
 ##### testing example
+
 ```
 import React from 'react';
 import { cleanup, render, wait } from '@testing-library/react';
@@ -225,7 +236,7 @@ import { DogComponent } from './';
 
 describe('Dog', () => {
   afterEach(cleanup);
-  
+
   it('should render error component', async () => {
       const dogName = 'Fido';
 
@@ -246,6 +257,7 @@ describe('Dog', () => {
 ```
 
 ##### storybook example
+
 ```
 import React from 'react';
 import { storiesOf } from '@storybook/react';

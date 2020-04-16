@@ -9,7 +9,7 @@ describe('ApolloErrorProvider', () => {
   it('should render the default graphql error message', async () => {
     const { getByText } = render(
       <ApolloErrorProvider>
-        <Component name="Buck" />
+        <Component />
       </ApolloErrorProvider>
     );
 
@@ -23,7 +23,7 @@ describe('ApolloErrorProvider', () => {
   it('should render a graphql error message with provided string', async () => {
     const { getByText } = render(
       <ApolloErrorProvider graphQLError="Dog not found.">
-        <Component name="Buck" />
+        <Component />
       </ApolloErrorProvider>
     );
 
@@ -35,7 +35,7 @@ describe('ApolloErrorProvider', () => {
   it('should render a graphql error message with provided graphql error', async () => {
     const { getByText } = render(
       <ApolloErrorProvider graphQLError={[new GraphQLError('Dog not found.')]}>
-        <Component name="Buck" />
+        <Component />
       </ApolloErrorProvider>
     );
 
