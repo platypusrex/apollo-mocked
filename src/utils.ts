@@ -17,7 +17,7 @@ import {
   GraphQLError,
   GraphQLSchema,
   IntrospectionQuery,
-  introspectionQuery,
+  getIntrospectionQuery,
   print,
   printSchema,
 } from 'graphql';
@@ -44,7 +44,7 @@ export async function fetchGraphQLSchema(
       ...headers,
     },
     body: JSON.stringify({
-      query: introspectionQuery,
+      query: getIntrospectionQuery,
     }),
     ...init,
   })
