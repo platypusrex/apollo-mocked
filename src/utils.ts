@@ -48,8 +48,8 @@ export async function fetchGraphQLSchema(
     }),
     ...init,
   })
-    .then(res => res.json())
-    .then(schemaJSON => {
+    .then((res) => res.json())
+    .then((schemaJSON) => {
       if (readable) {
         return printSchema(buildClientSchema(schemaJSON.data));
       }
@@ -59,7 +59,7 @@ export async function fetchGraphQLSchema(
 }
 
 function delay(ms: number): Promise<{}> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve();
     }, ms);
@@ -78,8 +78,8 @@ function createMockLink(
 ): ApolloLink {
   const delayMs = (options && options.delay) || 200;
 
-  return new ApolloLink(operation => {
-    return new Observable(observer => {
+  return new ApolloLink((operation) => {
+    return new Observable((observer) => {
       const { query, operationName, variables } = operation;
       delay(delayMs)
         .then(() => {
@@ -92,7 +92,7 @@ function createMockLink(
             operationName
           );
         })
-        .then(result => {
+        .then((result) => {
           observer.next(result);
           observer.complete();
         })
@@ -105,7 +105,7 @@ export function createErrorLink(
   graphQLError?: string | GraphQLError[]
 ): ApolloLink {
   return new ApolloLink(() => {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       delay(100)
         .then(() => {
           observer.next({
@@ -211,6 +211,7 @@ interface CreateMocksOptions<TData, TVariables> {
   variables?: TVariables;
   newData?: ResultFunction<FetchResult>;
   delay?: number;
+  graphqlErrors?: string | GraphQLError[];
 }
 
 export function createMocks<TData, TVariables>(
@@ -219,6 +220,7 @@ export function createMocks<TData, TVariables>(
     variables,
     data,
     newData,
+    graphqlErrors,
     delay = 200,
   }: CreateMocksOptions<TData, TVariables>
 ): MockedResponse[] {
@@ -228,7 +230,12 @@ export function createMocks<TData, TVariables>(
         query,
         variables,
       },
-      result: { data },
+      result: {
+        data,
+        ...(graphqlErrors
+          ? { errors: createGraphQLErrorMessage(graphqlErrors) }
+          : {}),
+      },
       newData,
       delay,
     },
