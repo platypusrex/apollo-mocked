@@ -212,6 +212,7 @@ interface CreateMocksOptions<TData, TVariables> {
   newData?: ResultFunction<FetchResult>;
   delay?: number;
   graphqlErrors?: string | GraphQLError[];
+  error?: Error;
 }
 
 export function createMocks<TData, TVariables>(
@@ -221,6 +222,7 @@ export function createMocks<TData, TVariables>(
     data,
     newData,
     graphqlErrors,
+    error,
     delay = 200,
   }: CreateMocksOptions<TData, TVariables>
 ): MockedResponse[] {
@@ -236,6 +238,7 @@ export function createMocks<TData, TVariables>(
           ? { errors: createGraphQLErrorMessage(graphqlErrors) }
           : {}),
       },
+      error,
       newData,
       delay,
     },
