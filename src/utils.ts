@@ -242,12 +242,6 @@ export function createMocks<TData, TVariables>(
             },
           }
         : {}),
-      result: {
-        data,
-        ...(graphqlErrors
-          ? { errors: createGraphQLErrorMessage(graphqlErrors) }
-          : {}),
-      },
       error,
       newData,
       delay,
