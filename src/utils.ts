@@ -232,6 +232,16 @@ export function createMocks<TData, TVariables>(
         query,
         variables,
       },
+      ...(!error
+        ? {
+            result: {
+              data,
+              ...(graphqlErrors
+                ? { errors: createGraphQLErrorMessage(graphqlErrors) }
+                : {}),
+            },
+          }
+        : {}),
       result: {
         data,
         ...(graphqlErrors
