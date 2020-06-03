@@ -1,4 +1,7 @@
-import ApolloClient, { ApolloClientOptions } from 'apollo-client';
+import ApolloClient, {
+  ApolloClientOptions,
+  OperationVariables,
+} from 'apollo-client';
 import fetch from 'isomorphic-unfetch';
 import {
   InMemoryCache,
@@ -215,7 +218,7 @@ interface CreateMocksOptions<TData, TVariables> {
   error?: Error;
 }
 
-export function createMocks<TData, TVariables>(
+export function createMocks<TData, TVariables = OperationVariables>(
   query: DocumentNode,
   {
     variables,
