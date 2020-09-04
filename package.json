@@ -1,6 +1,6 @@
 {
   "name": "apollo-mocked",
-  "version": "0.4.8",
+  "version": "0.4.9",
   "main": "dist/index.js",
   "module": "dist/apollo-mocked.esm.js",
   "typings": "dist/index.d.ts",
@@ -10,7 +10,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test"
+    "test": "tsdx test --env=jest-environment-jsdom-sixteen --coverage"
   },
   "peerDependencies": {
     "react": ">=16"
@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.1.4",
+    "@apollo/react-testing": "^4.0.0",
     "graphql": "^15.0.0",
     "graphql-tools": "^5.0.0",
     "isomorphic-unfetch": "^3.0.0"
