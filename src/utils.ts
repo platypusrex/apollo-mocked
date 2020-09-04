@@ -1,17 +1,19 @@
-import fetch from 'isomorphic-unfetch';
-import { MockedResponse, MockLink } from '@apollo/client/utilities/testing';
-import { ResultFunction } from '@apollo/client/utilities/testing/mocking/mockLink';
-import {
-  ApolloClient,
+import ApolloClient, {
   ApolloClientOptions,
-  ApolloLink,
-  FetchResult,
+  OperationVariables,
+} from 'apollo-client';
+import fetch from 'isomorphic-unfetch';
+import {
   InMemoryCache,
   InMemoryCacheConfig,
   NormalizedCacheObject,
-  Observable,
-  OperationVariables,
-} from '@apollo/client';
+} from 'apollo-cache-inmemory';
+import { ApolloLink, DocumentNode, Observable, FetchResult } from 'apollo-link';
+import {
+  MockedResponse,
+  MockLink,
+  ResultFunction,
+} from '@apollo/react-testing';
 import {
   buildClientSchema,
   graphql,
@@ -21,7 +23,6 @@ import {
   getIntrospectionQuery,
   print,
   printSchema,
-  DocumentNode,
 } from 'graphql';
 import {
   addMockFunctionsToSchema,
@@ -138,7 +139,7 @@ interface CreateApolloClient {
   mocks: ReadonlyArray<MockedResponse> | LinkSchemaProps;
   cacheOptions?: InMemoryCacheConfig;
   clientOptions?: ApolloClientOptions<NormalizedCacheObject>;
-  links?: (cache?: InMemoryCache) => ApolloLink[];
+  links?: (cache?: InMemoryCache) => ApolloLink[] | ApolloLink[];
   addTypename?: boolean;
 }
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, wait, cleanup } from '@testing-library/react';
 import { Component, GET_DOG_QUERY } from './Component';
-import { ApolloMockedProvider, createMocks } from '../src';
+import { ApolloMockedProvider } from '../src/ApolloMockedProvider';
+import { createMocks } from '../src/utils';
 
 const name = 'Buck';
 const breed = 'bulldog';
@@ -12,6 +13,8 @@ const mocks = createMocks(GET_DOG_QUERY, {
 });
 
 describe('ApolloMockedProvider', () => {
+  afterEach(cleanup);
+
   it('should render the requested data', async () => {
     const { getByText } = render(
       <ApolloMockedProvider mocks={mocks}>
@@ -19,7 +22,7 @@ describe('ApolloMockedProvider', () => {
       </ApolloMockedProvider>
     );
 
-    await waitFor(() => {
+    await wait(() => {
       expect(getByText(`Buck is a ${breed}`)).toBeTruthy();
     });
   });
