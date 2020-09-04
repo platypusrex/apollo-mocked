@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-unfetch';
-import { MockedResponse, MockLink } from '@apollo/client/utilities/testing';
-import { ResultFunction } from '@apollo/client/utilities/testing/mocking/mockLink';
+import { MockedResponse, MockLink } from '@apollo/react-testing';
 import {
   ApolloClient,
   ApolloClientOptions,
@@ -30,6 +29,8 @@ import {
   IMocks,
   IResolvers,
 } from 'graphql-tools';
+
+export declare type ResultFunction<T> = () => T;
 
 export async function fetchGraphQLSchema(
   url: string,
@@ -191,6 +192,7 @@ export function createApolloClient({
 
   return new ApolloClient({
     cache,
+    // @ts-ignore
     link: ApolloLink.from([...links(cache), mockLink]),
     ...clientOptions,
   });
