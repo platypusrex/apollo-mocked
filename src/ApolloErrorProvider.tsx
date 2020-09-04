@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { GraphQLError } from 'graphql';
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloProvider } from '@apollo/react-hooks';
 import { createErrorLink } from './utils';
 
 export interface ApolloErrorProviderProps {

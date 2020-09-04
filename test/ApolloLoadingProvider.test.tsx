@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, wait, cleanup } from '@testing-library/react';
 import { Component } from './Component';
-import { ApolloLoadingProvider } from '../src';
+import { ApolloLoadingProvider } from '../src/ApolloLoadingProvider';
 
 describe('ApolloLoadingProvider', () => {
+  afterEach(cleanup);
   it('should render the loading view', () => {
     const { getByText } = render(
       <ApolloLoadingProvider>
@@ -11,7 +12,7 @@ describe('ApolloLoadingProvider', () => {
       </ApolloLoadingProvider>
     );
 
-    waitFor(() => {
+    wait(() => {
       expect(getByText('Loading...')).toBeTruthy();
     });
   });
