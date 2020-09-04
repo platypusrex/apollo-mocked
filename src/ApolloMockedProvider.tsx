@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { ApolloProvider } from '@apollo/react-hooks';
-import { MockedResponse } from '@apollo/react-testing';
 import {
+  ApolloClientOptions,
+  ApolloProvider,
   InMemoryCacheConfig,
   NormalizedCacheObject,
-} from 'apollo-cache-inmemory';
-import { ApolloClientOptions } from 'apollo-client';
+} from '@apollo/client';
+import { MockedResponse } from '@apollo/client/utilities/testing';
 import { createApolloClient, LinkSchemaProps } from './utils';
 
 export interface ApolloMockedProviderProps {

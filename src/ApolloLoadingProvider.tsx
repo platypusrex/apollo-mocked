@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { createLoadingLink } from './utils';
 
 export interface ApolloLoadingProviderProps {
