@@ -13,9 +13,7 @@ describe('ApolloErrorProvider', () => {
     );
 
     await waitFor(() => {
-      expect(
-        screen.getByText('GraphQL error: Unspecified error from ErrorProvider.')
-      ).toBeTruthy();
+      expect(screen.getByText('Unspecified error from ErrorProvider.')).toBeTruthy();
     });
   });
 
@@ -27,7 +25,7 @@ describe('ApolloErrorProvider', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText('GraphQL error: Dog not found.')).toBeTruthy();
+      expect(screen.getByText('Dog not found.')).toBeTruthy();
     });
   });
 
@@ -39,7 +37,7 @@ describe('ApolloErrorProvider', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText('GraphQL error: Dog not found.')).toBeTruthy();
+      expect(screen.getByText('Dog not found.')).toBeTruthy();
     });
   });
 });

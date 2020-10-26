@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { ApolloProvider } from '@apollo/client';
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { GraphQLError } from 'graphql';
 import { createErrorLink } from './utils';
 
@@ -16,11 +14,9 @@ export const ApolloErrorProvider: React.FC<ApolloErrorProviderProps> = ({
   Provider = ApolloProvider,
 }) => {
   const client = new ApolloClient({
-    // @ts-ignore
     link: createErrorLink(graphQLError),
     cache: new InMemoryCache(),
   });
 
-  // @ts-ignore
   return <Provider client={client}>{children}</Provider>;
 };

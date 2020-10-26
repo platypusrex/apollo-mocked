@@ -1,9 +1,18 @@
 import * as React from 'react';
-import { ApolloProvider } from '@apollo/client';
-import { CreateApolloClient, createApolloClient } from './utils';
+import {
+  ApolloClientOptions,
+  ApolloProvider,
+  InMemoryCacheConfig,
+  NormalizedCacheObject,
+} from '@apollo/client';
+import { MockedResponse } from '@apollo/client/testing';
+import { createApolloClient, LinkSchemaProps } from './utils';
 
-export interface ApolloMockedProviderProps
-  extends Omit<CreateApolloClient, 'links'> {
+export interface ApolloMockedProviderProps {
+  mocks: ReadonlyArray<MockedResponse> | LinkSchemaProps;
+  addTypename?: boolean;
+  cacheOptions?: InMemoryCacheConfig;
+  clientOptions?: ApolloClientOptions<NormalizedCacheObject>;
   Provider?: React.ComponentType<any>;
 }
 
@@ -14,6 +23,5 @@ export const ApolloMockedProvider: React.FC<ApolloMockedProviderProps> = ({
 }) => {
   const client = createApolloClient(rest);
 
-  // @ts-ignore
   return <Provider client={client}>{children}</Provider>;
 };
