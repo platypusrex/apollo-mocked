@@ -1,6 +1,6 @@
 {
   "name": "apollo-mocked",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "main": "dist/index.js",
   "module": "dist/apollo-mocked.esm.js",
   "typings": "dist/index.d.ts",
@@ -27,15 +27,15 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "@testing-library/react": "^11.0.0",
-    "@types/jest": "^25.2.1",
+    "@testing-library/react": "^11.2.2",
+    "@types/jest": "^26.0.15",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
-    "graphql-tag": "^2.10.3",
-    "husky": "^4.2.5",
+    "graphql-tag": "^2.11.0",
+    "husky": "^4.3.0",
     "jest-environment-jsdom-sixteen": "^1.0.3",
-    "prettier": "^2.0.4",
-    "pretty-quick": "^2.0.1",
+    "prettier": "^2.2.0",
+    "pretty-quick": "^3.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.13.1",
     "tsdx": "^0.13.2",
@@ -43,9 +43,9 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@apollo/client": "^3.2.5",
+    "@apollo/client": "^3.3.1",
     "graphql": "^15.0.0",
     "graphql-tools": "^5.0.0",
-    "isomorphic-unfetch": "^3.0.0"
+    "isomorphic-unfetch": "^3.1.0"
   }
 }
