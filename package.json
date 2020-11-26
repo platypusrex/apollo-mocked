@@ -10,7 +10,9 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test --env=jest-environment-jsdom-sixteen --coverage"
+    "test": "tsdx test --env=jest-environment-jsdom-sixteen --coverage",
+    "lint": "tsdx lint",
+    "lint:fix": "tsdx lint --fix"
   },
   "peerDependencies": {
     "react": ">=16"
