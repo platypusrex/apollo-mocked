@@ -135,7 +135,7 @@ export interface LinkSchemaProps extends CreateLinkOptions {
   context?: any;
 }
 
-interface CreateApolloClient {
+export interface CreateApolloClient {
   mocks: ReadonlyArray<MockedResponse> | LinkSchemaProps;
   cacheOptions?: InMemoryCacheConfig;
   clientOptions?: ApolloClientOptions<NormalizedCacheObject>;
@@ -165,7 +165,7 @@ export function createApolloClient({
       delay,
     } = mocks as LinkSchemaProps;
 
-    const schema = buildClientSchema(introspectionResult as any);
+    const schema = buildClientSchema(introspectionResult);
     let mockOptions: any = { schema };
 
     mockOptions = {
