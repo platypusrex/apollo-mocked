@@ -2,11 +2,6 @@
 
 A mocked ApolloProvider solution that works equally well with Storybook and unit testing react components.
 
-**important:**
-<br/>Versions 0.4.8+ are unstable as regressions from apollo v3 are still being ironed out
-
-You can still use v0.4.7 with apollo v3 by passing the `Provider` to each mock provider
-
 ## Install
 
 `npm install apollo-mocked`
@@ -59,7 +54,7 @@ All components take an optional `Provider` prop which will generally default to 
 
 | property | propType                   | required | default                                      |
 | -------- | -------------------------- | -------- | -------------------------------------------- |
-| Provider | `React.ComponentType<any>` | no       | `<ApolloProvider />` (@apollo/client v3.1.4) |
+| Provider | `React.ComponentType<any>` | no       | `<ApolloProvider />` (@apollo/client v3.3.1) |
 
 ##### testing example
 
@@ -109,7 +104,7 @@ export const Loading = () => (
 
 | property      | propType                   | required | default                                                       |
 | ------------- | -------------------------- | -------- | ------------------------------------------------------------- |
-| Provider      | `React.ComponentType<any>` | no       | `<ApolloProvider />` (@apollo/client v3.1.4)                  |
+| Provider      | `React.ComponentType<any>` | no       | `<ApolloProvider />` (@apollo/client v3.3.1)                  |
 | errorMessages | `string` or `string[]`     | no       | `[new GraphQLError('Unspecified error from ErrorProvider.')]` |
 
 ##### testing example
@@ -162,7 +157,7 @@ export const Error = () => (
 
 | property      | propType                                             | required | default                                      |
 | ------------- | ---------------------------------------------------- | -------- | -------------------------------------------- |
-| Provider      | `React.ComponentType<any>`                           | no       | `<ApolloProvider />` (@apollo/client v3.1.4) |
+| Provider      | `React.ComponentType<any>`                           | no       | `<ApolloProvider />` (@apollo/client v3.3.1) |
 | addTypename   | boolean                                              | no       | false                                        |
 | cacheOptions  | `InMemoryCacheConfig`                                | no       | --                                           |
 | clientOptions | `ApolloClientOptions<NormalizedCacheObject>`         | no       | --                                           |
