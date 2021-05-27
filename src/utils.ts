@@ -96,7 +96,21 @@ function createMockLink(
           );
         })
         .then((result) => {
-          observer.next(result);
+          const originalError = result?.errors?.[0].originalError;
+          if (originalError) {
+            // @ts-ignore
+            const graphQLErrors = originalError?.graphQLErrors;
+            if (graphQLErrors) {
+              observer.next({ errors: graphQLErrors });
+            }
+            // @ts-ignore
+            const networkError = originalError.networkError;
+            if (networkError) {
+              observer.error(networkError);
+            }
+          } else {
+            observer.next(result);
+          }
           observer.complete();
         })
         .catch(observer.error.bind(observer));

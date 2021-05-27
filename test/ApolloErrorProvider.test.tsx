@@ -1,6 +1,6 @@
 import React from 'react';
 import { GraphQLError } from 'graphql';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Component } from './Component';
 import { ApolloErrorProvider } from '../src/ApolloErrorProvider';
 
@@ -12,9 +12,9 @@ describe('ApolloErrorProvider', () => {
       </ApolloErrorProvider>
     );
 
-    await waitFor(() => {
-      expect(screen.getByText('Unspecified error from ErrorProvider.')).toBeTruthy();
-    });
+    expect(
+      await screen.findByText('Unspecified error from ErrorProvider.')
+    ).toBeTruthy();
   });
 
   it('should render a graphql error message with provided string', async () => {
@@ -24,9 +24,7 @@ describe('ApolloErrorProvider', () => {
       </ApolloErrorProvider>
     );
 
-    await waitFor(() => {
-      expect(screen.getByText('Dog not found.')).toBeTruthy();
-    });
+    expect(await screen.findByText('Dog not found.')).toBeTruthy();
   });
 
   it('should render a graphql error message with provided graphql error', async () => {
@@ -36,8 +34,6 @@ describe('ApolloErrorProvider', () => {
       </ApolloErrorProvider>
     );
 
-    await waitFor(() => {
-      expect(screen.getByText('Dog not found.')).toBeTruthy();
-    });
+    expect(await screen.findByText('Dog not found.')).toBeTruthy();
   });
 });

@@ -11,21 +11,15 @@ export const GET_DOG_QUERY = gql`
   }
 `;
 
-export const Component: React.FC = () => {
+export const NetworkError: React.FC = () => {
   const { data, loading, error } = useQuery(GET_DOG_QUERY);
 
   if (loading) {
     return <p>Loading...</p>;
   }
 
-  if (error?.graphQLErrors) {
-    return (
-      <>
-        {error?.graphQLErrors.map((error, i) => (
-          <p key={i}>{error.message}</p>
-        ))}
-      </>
-    );
+  if (error?.networkError) {
+    return <p>{error.networkError.message}</p>;
   }
 
   return (
