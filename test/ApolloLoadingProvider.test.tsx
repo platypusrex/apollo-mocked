@@ -11,7 +11,6 @@ describe('ApolloLoadingProvider', () => {
       </ApolloLoadingProvider>
     );
 
-    const loadingNode = await screen.queryByText('Loading...');
-    expect(loadingNode).toBeTruthy();
+    expect(screen.getByText('Loading...')).toBeTruthy();
   });
 });
