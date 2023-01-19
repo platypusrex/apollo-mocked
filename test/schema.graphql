@@ -1,0 +1,14 @@
+type Dog {
+  breed: String!
+  name: String!
+}
+
+type Human {
+  name: String!
+  age: Int!
+}
+
+type Query {
+  dog: Dog
+  human: Human
+}

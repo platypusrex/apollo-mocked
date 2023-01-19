@@ -13,9 +13,12 @@
     "test": "tsdx test --env=jest-environment-jsdom-sixteen --coverage",
     "lint": "tsdx lint",
     "lint:fix": "tsdx lint --fix",
-    "prepare": "tsdx build"
+    "prepare": "tsdx build",
+    "generate": "graphql-codegen --config codegen.ts"
   },
   "peerDependencies": {
+    "@apollo/client": ">=3.3.1",
+    "graphql": ">=15.*",
     "react": ">=16"
   },
   "husky": {
@@ -30,10 +33,17 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
+    "@apollo/client": "3.3.1",
+    "@graphql-codegen/cli": "2.16.1",
+    "@graphql-codegen/client-preset": "1.2.3",
+    "@graphql-codegen/introspection": "2.2.3",
+    "@graphql-codegen/typescript": "^2.8.5",
+    "@graphql-codegen/typescript-operations": "^2.5.10",
     "@testing-library/react": "^11.2.2",
     "@types/jest": "^26.0.15",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
+    "graphql": "^15.0.0",
     "graphql-tag": "^2.11.0",
     "husky": "^4.3.0",
     "jest-environment-jsdom-sixteen": "^1.0.3",
@@ -46,9 +56,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.1",
-    "graphql": "^15.0.0",
-    "graphql-tools": "^5.0.0",
+    "@graphql-tools/mock": "^8.5.2",
     "isomorphic-unfetch": "^3.1.0"
   }
 }

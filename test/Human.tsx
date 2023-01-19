@@ -1,18 +1,11 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
-
-export const GET_DOG_QUERY = gql`
-  query {
-    dog {
-      name
-      breed
-    }
-  }
-`;
-
-export const Component: React.FC = () => {
-  const { data, loading, error } = useQuery(GET_DOG_QUERY);
+import { HUMAN_QUERY } from './gql/humanQuery';
+import { HumanQuery, HumanQueryVariables } from './generated';
+export const Human: React.FC = () => {
+  const { data, loading, error } = useQuery<HumanQuery, HumanQueryVariables>(
+    HUMAN_QUERY
+  );
 
   if (loading) {
     return <p>Loading...</p>;
@@ -30,7 +23,7 @@ export const Component: React.FC = () => {
 
   return (
     <p>
-      {data.dog.name} is a {data.dog.breed}
+      {data?.human?.name} is {data?.human?.age} years old.
     </p>
   );
 };

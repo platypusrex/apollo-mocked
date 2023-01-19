@@ -1,18 +1,9 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
-
-export const GET_DOG_QUERY = gql`
-  query {
-    dog {
-      name
-      breed
-    }
-  }
-`;
+import { DOG_QUERY } from './gql/dogQuery';
 
 export const NetworkError: React.FC = () => {
-  const { data, loading, error } = useQuery(GET_DOG_QUERY);
+  const { data, loading, error } = useQuery(DOG_QUERY);
 
   if (loading) {
     return <p>Loading...</p>;

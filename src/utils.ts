@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch';
+import { addMocksToSchema, IMocks } from '@graphql-tools/mock';
 import { MockedResponse, MockLink } from '@apollo/client/testing';
 import {
   ApolloClient,
@@ -14,52 +14,14 @@ import {
 import {
   buildClientSchema,
   graphql,
+  print,
+  DocumentNode,
   GraphQLError,
   GraphQLSchema,
   IntrospectionQuery,
-  getIntrospectionQuery,
-  print,
-  printSchema,
-  DocumentNode,
 } from 'graphql';
-import {
-  addMockFunctionsToSchema,
-  addResolveFunctionsToSchema,
-  ITypeDefinitions,
-  IMocks,
-  IResolvers,
-} from 'graphql-tools';
 
 export declare type ResultFunction<T> = () => T;
-
-export async function fetchGraphQLSchema(
-  url: string,
-  readable: boolean = true,
-  init?: RequestInit
-): Promise<ITypeDefinitions> {
-  const headers = init ? init.headers : {};
-
-  return fetch(url, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...headers,
-    },
-    body: JSON.stringify({
-      query: getIntrospectionQuery,
-    }),
-    ...init,
-  })
-    .then((res) => res.json())
-    .then((schemaJSON) => {
-      if (readable) {
-        return printSchema(buildClientSchema(schemaJSON.data));
-      }
-
-      return JSON.stringify(schemaJSON, null, 2);
-    });
-}
 
 function delay(ms: number): Promise<{}> {
   return new Promise((resolve) => {
@@ -79,7 +41,7 @@ function createMockLink(
   context = {},
   options: CreateLinkOptions = {}
 ): ApolloLink {
-  const delayMs = (options && options.delay) || 200;
+  const delayMs = options?.delay ?? 0;
 
   return new ApolloLink((operation) => {
     return new Observable((observer) => {
@@ -141,16 +103,16 @@ export function createLoadingLink(): ApolloLink {
   });
 }
 
-export interface LinkSchemaProps extends CreateLinkOptions {
+export interface LinkSchemaProps {
   resolvers: IMocks;
   introspectionResult: IntrospectionQuery | any;
-  typeResolvers?: IResolvers;
   rootValue?: any;
   context?: any;
 }
 
 export interface CreateApolloClient {
   mocks: ReadonlyArray<MockedResponse> | LinkSchemaProps;
+  delay?: number;
   cacheOptions?: InMemoryCacheConfig;
   clientOptions?: ApolloClientOptions<NormalizedCacheObject>;
   links?: (cache?: InMemoryCache) => ApolloLink[];
@@ -159,6 +121,7 @@ export interface CreateApolloClient {
 
 export function createApolloClient({
   mocks,
+  delay = 0,
   cacheOptions = {},
   clientOptions = {} as any,
   links = () => {
@@ -173,31 +136,23 @@ export function createApolloClient({
     const {
       resolvers,
       introspectionResult,
-      typeResolvers,
       rootValue,
       context,
-      delay,
     } = mocks as LinkSchemaProps;
 
     const schema = buildClientSchema(introspectionResult);
-    let mockOptions: any = { schema };
-
-    mockOptions = {
-      ...mockOptions,
-      mocks: resolvers,
-    };
-
-    addMockFunctionsToSchema(mockOptions);
-
-    if (!!typeResolvers) {
-      addResolveFunctionsToSchema({ schema, resolvers: typeResolvers });
-    }
+    const schemaWithMocks = addMocksToSchema({ schema, resolvers });
 
     if (delay) {
       apolloLinkOptions.delay = delay;
     }
 
-    mockLink = createMockLink(schema, rootValue, context, apolloLinkOptions);
+    mockLink = createMockLink(
+      schemaWithMocks,
+      rootValue,
+      context,
+      apolloLinkOptions
+    );
   } else {
     mockLink = new MockLink(mocks as MockedResponse[], addTypename);
   }
@@ -240,7 +195,7 @@ export function createMocks<TData, TVariables = OperationVariables>(
     newData,
     graphqlErrors,
     error,
-    delay = 200,
+    delay = 0,
   }: CreateMocksOptions<TData, TVariables>
 ): MockedResponse[] {
   return [
