@@ -1,18 +1,22 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { Component, GET_DOG_QUERY } from './Component';
-import { NetworkError } from './NetworkError';
-import { ApolloMockedProvider } from '../src/ApolloMockedProvider';
-import { createMocks } from '../src/utils';
-import introspectionResult from './schema.json';
 import { ApolloError } from '@apollo/client';
 import { GraphQLError } from 'graphql';
+import { render, screen } from '@testing-library/react';
+import { ApolloMockedProvider } from '../src/ApolloMockedProvider';
+import { createMocks } from '../src/utils';
+import { Dog } from './Dog';
+import { Human } from './Human';
+import { NetworkError } from './NetworkError';
+import { HUMAN_QUERY } from './gql/humanQuery';
+import introspectionResult from './introspection.json';
+import { HumanQuery, HumanQueryVariables } from './generated';
 
 const name = 'Buck';
 const breed = 'bulldog';
-const mocks = createMocks(GET_DOG_QUERY, {
+const age = 99;
+const mocks = createMocks<HumanQuery, HumanQueryVariables>(HUMAN_QUERY, {
   data: {
-    dog: { name, breed },
+    human: { name, age },
   },
 });
 
@@ -21,11 +25,13 @@ describe('ApolloMockedProvider', () => {
     it('should render the requested data', async () => {
       render(
         <ApolloMockedProvider mocks={mocks}>
-          <Component />
+          <Human />
         </ApolloMockedProvider>
       );
 
-      expect(await screen.findByText(`Buck is a ${breed}`)).toBeTruthy();
+      expect(
+        await screen.findByText(`${name} is ${age} years old.`)
+      ).toBeTruthy();
     });
   });
 
@@ -35,18 +41,18 @@ describe('ApolloMockedProvider', () => {
         <ApolloMockedProvider
           mocks={{
             resolvers: {
-              Query: () => ({
+              Query: {
                 dog: () => ({ name, breed }),
-              }),
+              },
             },
             introspectionResult,
           }}
         >
-          <Component />
+          <Dog />
         </ApolloMockedProvider>
       );
 
-      expect(await screen.findByText(`Buck is a ${breed}`)).toBeTruthy();
+      expect(await screen.findByText(`${name} is a ${breed}`)).toBeTruthy();
     });
     it('should render a graphql error', async () => {
       render(
@@ -54,17 +60,17 @@ describe('ApolloMockedProvider', () => {
           mocks={{
             introspectionResult,
             resolvers: {
-              Query: () => ({
+              Query: {
                 dog: () => {
                   throw new ApolloError({
                     graphQLErrors: [new GraphQLError('Dog not found.')],
                   });
                 },
-              }),
+              },
             },
           }}
         >
-          <Component />
+          <Dog />
         </ApolloMockedProvider>
       );
 
@@ -76,13 +82,13 @@ describe('ApolloMockedProvider', () => {
           mocks={{
             introspectionResult,
             resolvers: {
-              Query: () => ({
+              Query: {
                 dog: () => {
                   throw new ApolloError({
                     networkError: new Error('service unavailable'),
                   });
                 },
-              }),
+              },
             },
           }}
         >
