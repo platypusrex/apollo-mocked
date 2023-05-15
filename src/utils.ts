@@ -23,7 +23,7 @@ import {
 
 export declare type ResultFunction<T> = () => T;
 
-function delay(ms: number): Promise<{}> {
+function delay(ms: number): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve();
@@ -48,14 +48,14 @@ function createMockLink(
       const { query, operationName, variables } = operation;
       delay(delayMs)
         .then(() => {
-          return graphql(
+          return graphql({
             schema,
-            print(query),
+            source: print(query),
             rootValue,
-            context,
-            variables,
-            operationName
-          );
+            contextValue: context,
+            variableValues: variables,
+            operationName,
+          });
         })
         .then((result) => {
           const originalError = result?.errors?.[0].originalError;
@@ -80,9 +80,7 @@ function createMockLink(
   });
 }
 
-export function createErrorLink(
-  graphQLError?: string | GraphQLError[]
-): ApolloLink {
+export function createErrorLink(graphQLError?: string | GraphQLError[]): ApolloLink {
   return new ApolloLink(() => {
     return new Observable((observer) => {
       delay(100)
@@ -99,6 +97,7 @@ export function createErrorLink(
 
 export function createLoadingLink(): ApolloLink {
   return new ApolloLink(() => {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     return new Observable(() => {});
   });
 }
@@ -133,12 +132,7 @@ export function createApolloClient({
 
   if (!Array.isArray(mocks)) {
     const apolloLinkOptions: CreateLinkOptions = {};
-    const {
-      resolvers,
-      introspectionResult,
-      rootValue,
-      context,
-    } = mocks as LinkSchemaProps;
+    const { resolvers, introspectionResult, rootValue, context } = mocks as LinkSchemaProps;
 
     const schema = buildClientSchema(introspectionResult);
     const schemaWithMocks = addMocksToSchema({ schema, resolvers });
@@ -147,12 +141,7 @@ export function createApolloClient({
       apolloLinkOptions.delay = delay;
     }
 
-    mockLink = createMockLink(
-      schemaWithMocks,
-      rootValue,
-      context,
-      apolloLinkOptions
-    );
+    mockLink = createMockLink(schemaWithMocks, rootValue, context, apolloLinkOptions);
   } else {
     mockLink = new MockLink(mocks as MockedResponse[], addTypename);
   }
@@ -160,19 +149,16 @@ export function createApolloClient({
   const cache = new InMemoryCache({ ...cacheOptions, addTypename });
 
   return new ApolloClient({
+    // @ts-ignore
     cache,
     link: ApolloLink.from([...links(cache), mockLink]),
     ...clientOptions,
   });
 }
 
-export function createGraphQLErrorMessage(
-  graphQLError?: string | GraphQLError[]
-): GraphQLError[] {
+export function createGraphQLErrorMessage(graphQLError?: string | GraphQLError[]): GraphQLError[] {
   if (graphQLError) {
-    return typeof graphQLError === 'string'
-      ? [new GraphQLError(graphQLError)]
-      : graphQLError;
+    return typeof graphQLError === 'string' ? [new GraphQLError(graphQLError)] : graphQLError;
   }
 
   return [new GraphQLError('Unspecified error from ErrorProvider.')];
@@ -187,7 +173,10 @@ interface CreateMocksOptions<TData, TVariables> {
   error?: Error;
 }
 
-export function createMocks<TData, TVariables = OperationVariables>(
+export function createMocks<
+  TData extends Record<string, any> | null | undefined,
+  TVariables extends OperationVariables | undefined = OperationVariables
+>(
   query: DocumentNode,
   {
     variables,
@@ -208,9 +197,7 @@ export function createMocks<TData, TVariables = OperationVariables>(
         ? {
             result: {
               data,
-              ...(graphqlErrors
-                ? { errors: createGraphQLErrorMessage(graphqlErrors) }
-                : {}),
+              ...(graphqlErrors ? { errors: createGraphQLErrorMessage(graphqlErrors) } : {}),
             },
           }
         : {}),

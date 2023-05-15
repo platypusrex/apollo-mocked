@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Dog } from './Dog';
 import { ApolloLoadingProvider } from '../src/ApolloLoadingProvider';
+import { Dog } from './Dog';
 
 describe.skip('ApolloLoadingProvider', () => {
   it('should render the loading view', async () => {

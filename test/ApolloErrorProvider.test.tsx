@@ -1,8 +1,8 @@
 import React from 'react';
 import { GraphQLError } from 'graphql';
 import { render, screen } from '@testing-library/react';
-import { Dog } from './Dog';
 import { ApolloErrorProvider } from '../src/ApolloErrorProvider';
+import { Dog } from './Dog';
 
 describe.skip('ApolloErrorProvider', () => {
   it('should render the default graphql error message', async () => {
@@ -12,9 +12,7 @@ describe.skip('ApolloErrorProvider', () => {
       </ApolloErrorProvider>
     );
 
-    expect(
-      await screen.findByText('Unspecified error from ErrorProvider.')
-    ).toBeTruthy();
+    expect(await screen.findByText('Unspecified error from ErrorProvider.')).toBeTruthy();
   });
 
   it('should render a graphql error message with provided string', async () => {
