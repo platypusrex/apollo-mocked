@@ -80,9 +80,7 @@ function createMockLink(
   });
 }
 
-export function createErrorLink(
-  graphQLError?: string | GraphQLError[]
-): ApolloLink {
+export function createErrorLink(graphQLError?: string | GraphQLError[]): ApolloLink {
   return new ApolloLink(() => {
     return new Observable((observer) => {
       delay(100)
@@ -134,12 +132,7 @@ export function createApolloClient({
 
   if (!Array.isArray(mocks)) {
     const apolloLinkOptions: CreateLinkOptions = {};
-    const {
-      resolvers,
-      introspectionResult,
-      rootValue,
-      context,
-    } = mocks as LinkSchemaProps;
+    const { resolvers, introspectionResult, rootValue, context } = mocks as LinkSchemaProps;
 
     const schema = buildClientSchema(introspectionResult);
     const schemaWithMocks = addMocksToSchema({ schema, resolvers });
@@ -148,12 +141,7 @@ export function createApolloClient({
       apolloLinkOptions.delay = delay;
     }
 
-    mockLink = createMockLink(
-      schemaWithMocks,
-      rootValue,
-      context,
-      apolloLinkOptions
-    );
+    mockLink = createMockLink(schemaWithMocks, rootValue, context, apolloLinkOptions);
   } else {
     mockLink = new MockLink(mocks as MockedResponse[], addTypename);
   }
@@ -168,13 +156,9 @@ export function createApolloClient({
   });
 }
 
-export function createGraphQLErrorMessage(
-  graphQLError?: string | GraphQLError[]
-): GraphQLError[] {
+export function createGraphQLErrorMessage(graphQLError?: string | GraphQLError[]): GraphQLError[] {
   if (graphQLError) {
-    return typeof graphQLError === 'string'
-      ? [new GraphQLError(graphQLError)]
-      : graphQLError;
+    return typeof graphQLError === 'string' ? [new GraphQLError(graphQLError)] : graphQLError;
   }
 
   return [new GraphQLError('Unspecified error from ErrorProvider.')];
@@ -213,9 +197,7 @@ export function createMocks<
         ? {
             result: {
               data,
-              ...(graphqlErrors
-                ? { errors: createGraphQLErrorMessage(graphqlErrors) }
-                : {}),
+              ...(graphqlErrors ? { errors: createGraphQLErrorMessage(graphqlErrors) } : {}),
             },
           }
         : {}),

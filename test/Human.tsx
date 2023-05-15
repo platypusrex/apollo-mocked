@@ -3,9 +3,7 @@ import { useQuery } from '@apollo/client';
 import { HUMAN_QUERY } from './gql/humanQuery';
 import { HumanQuery, HumanQueryVariables } from './generated';
 export const Human: React.FC = () => {
-  const { data, loading, error } = useQuery<HumanQuery, HumanQueryVariables>(
-    HUMAN_QUERY
-  );
+  const { data, loading, error } = useQuery<HumanQuery, HumanQueryVariables>(HUMAN_QUERY);
 
   if (loading) {
     return <p>Loading...</p>;

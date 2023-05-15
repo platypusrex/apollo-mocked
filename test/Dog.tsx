@@ -7,12 +7,9 @@ interface DogProps {
   includeName?: boolean;
 }
 export const Dog: React.FC<DogProps> = ({ includeName = true }) => {
-  const { data, loading, error } = useQuery<DogQuery, DogQueryVariables>(
-    DOG_QUERY,
-    {
-      variables: { includeName },
-    }
-  );
+  const { data, loading, error } = useQuery<DogQuery, DogQueryVariables>(DOG_QUERY, {
+    variables: { includeName },
+  });
 
   if (loading) {
     return <p>Loading...</p>;

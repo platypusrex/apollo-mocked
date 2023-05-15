@@ -29,9 +29,7 @@ describe('ApolloMockedProvider', () => {
         </ApolloMockedProvider>
       );
 
-      expect(
-        await screen.findByText(`${name} is ${age} years old.`)
-      ).toBeTruthy();
+      expect(await screen.findByText(`${name} is ${age} years old.`)).toBeTruthy();
     });
   });
 

@@ -12,9 +12,7 @@ describe.skip('ApolloErrorProvider', () => {
       </ApolloErrorProvider>
     );
 
-    expect(
-      await screen.findByText('Unspecified error from ErrorProvider.')
-    ).toBeTruthy();
+    expect(await screen.findByText('Unspecified error from ErrorProvider.')).toBeTruthy();
   });
 
   it('should render a graphql error message with provided string', async () => {
