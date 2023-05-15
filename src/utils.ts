@@ -23,7 +23,7 @@ import {
 
 export declare type ResultFunction<T> = () => T;
 
-function delay(ms: number): Promise<{}> {
+function delay(ms: number): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve();
@@ -48,14 +48,14 @@ function createMockLink(
       const { query, operationName, variables } = operation;
       delay(delayMs)
         .then(() => {
-          return graphql(
+          return graphql({
             schema,
-            print(query),
+            source: print(query),
             rootValue,
-            context,
-            variables,
-            operationName
-          );
+            contextValue: context,
+            variableValues: variables,
+            operationName,
+          });
         })
         .then((result) => {
           const originalError = result?.errors?.[0].originalError;
@@ -99,6 +99,7 @@ export function createErrorLink(
 
 export function createLoadingLink(): ApolloLink {
   return new ApolloLink(() => {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     return new Observable(() => {});
   });
 }
@@ -160,6 +161,7 @@ export function createApolloClient({
   const cache = new InMemoryCache({ ...cacheOptions, addTypename });
 
   return new ApolloClient({
+    // @ts-ignore
     cache,
     link: ApolloLink.from([...links(cache), mockLink]),
     ...clientOptions,
@@ -187,7 +189,10 @@ interface CreateMocksOptions<TData, TVariables> {
   error?: Error;
 }
 
-export function createMocks<TData, TVariables = OperationVariables>(
+export function createMocks<
+  TData extends Record<string, any> | null | undefined,
+  TVariables extends OperationVariables | undefined = OperationVariables
+>(
   query: DocumentNode,
   {
     variables,
