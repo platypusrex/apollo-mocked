@@ -118,6 +118,9 @@ devDependencies:
   rimraf:
     specifier: ^5.0.0
     version: 5.0.0
+  tslib:
+    specifier: ^2.6.0
+    version: 2.6.0
   typescript:
     specifier: ^4.9.5
     version: 4.9.5
@@ -1787,7 +1790,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.6.0
     dev: true
 
   /@graphql-tools/prisma-loader@7.2.72(@types/node@20.4.3)(graphql@16.6.0):
@@ -1830,7 +1833,7 @@ packages:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.6.0)
       '@graphql-tools/utils': 9.2.1(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.6.0
     transitivePeerDependencies:
       - encoding
       - supports-color
