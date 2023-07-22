@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { ApolloErrorProvider } from '../src/ApolloErrorProvider';
 import { Dog } from './Dog';
 
-describe.skip('ApolloErrorProvider', () => {
+describe('ApolloErrorProvider', () => {
   it('should render the default graphql error message', async () => {
     render(
       <ApolloErrorProvider>

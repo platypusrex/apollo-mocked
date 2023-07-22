@@ -135,6 +135,7 @@ export function createApolloClient({
     const { resolvers, introspectionResult, rootValue, context } = mocks as LinkSchemaProps;
 
     const schema = buildClientSchema(introspectionResult);
+    // @ts-ignore
     const schemaWithMocks = addMocksToSchema({ schema, resolvers });
 
     if (delay) {
@@ -175,7 +176,7 @@ interface CreateMocksOptions<TData, TVariables> {
 
 export function createMocks<
   TData extends Record<string, any> | null | undefined,
-  TVariables extends OperationVariables | undefined = OperationVariables
+  TVariables extends OperationVariables | undefined = OperationVariables,
 >(
   query: DocumentNode,
   {

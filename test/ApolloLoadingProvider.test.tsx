@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { ApolloLoadingProvider } from '../src/ApolloLoadingProvider';
 import { Dog } from './Dog';
 
-describe.skip('ApolloLoadingProvider', () => {
+describe('ApolloLoadingProvider', () => {
   it('should render the loading view', async () => {
     render(
       <ApolloLoadingProvider>

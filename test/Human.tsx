@@ -10,13 +10,7 @@ export const Human: React.FC = () => {
   }
 
   if (error?.graphQLErrors) {
-    return (
-      <>
-        {error?.graphQLErrors.map((error, i) => (
-          <p key={i}>{error.message}</p>
-        ))}
-      </>
-    );
+    return <>{error?.graphQLErrors.map((error, i) => <p key={i}>{error.message}</p>)}</>;
   }
 
   return (
