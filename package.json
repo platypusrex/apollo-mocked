@@ -19,7 +19,9 @@
     "lint": "eslint --cache '{src,test}/**.{ts,tsx,js,md}'",
     "lint:fix": "eslint '{src,test}/**.{ts,tsx,js,md}' --fix",
     "generate": "graphql-codegen --config codegen.ts",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "version": "changeset version",
+    "release": "yarn lint && changeset publish && git push --follow-tags"
   },
   "peerDependencies": {
     "@apollo/client": ">=3.3.1",
