@@ -16,13 +16,7 @@ export const Dog: React.FC<DogProps> = ({ includeName = true }) => {
   }
 
   if (error?.graphQLErrors) {
-    return (
-      <>
-        {error?.graphQLErrors.map((error, i) => (
-          <p key={i}>{error.message}</p>
-        ))}
-      </>
-    );
+    return <>{error?.graphQLErrors.map((error, i) => <p key={i}>{error.message}</p>)}</>;
   }
 
   return (
