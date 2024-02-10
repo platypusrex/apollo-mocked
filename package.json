@@ -58,7 +58,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "7.33.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "graphql": "^16.6.0",
+    "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
     "husky": "^8.0.3",
     "jest": "^29.5.0",
@@ -74,6 +74,6 @@
     "@graphql-tools/mock": "^8.5.2"
   },
   "resolutions": {
-    "graphql": "16.6.0"
+    "graphql": "16.8.1"
   }
 }
