@@ -1,5 +1,11 @@
 # apollo-mocked
 
+## 2.1.1
+
+### Patch Changes
+
+- 8b8f34b: build(deps-dev): bump undici from 5.26.3 to 5.28.3
+
 ## 2.1.0
 
 ### Minor Changes
