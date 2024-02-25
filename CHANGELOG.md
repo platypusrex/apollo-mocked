@@ -1,5 +1,11 @@
 # apollo-mocked
 
+## 2.2.0
+
+### Minor Changes
+
+- 9f66b9d: Fixes issues with published package missing the dist dir.
+
 ## 2.1.1
 
 ### Patch Changes
