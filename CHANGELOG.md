@@ -1,5 +1,11 @@
 # apollo-mocked
 
+## 2.2.1
+
+### Patch Changes
+
+- 19055da: Fixes issues with type checking failure for unit tests.
+
 ## 2.2.0
 
 ### Minor Changes
