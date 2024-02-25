@@ -15,7 +15,7 @@ export const NetworkError: React.FC = () => {
 
   return (
     <p>
-      {data.dog.name} is a {data.dog.breed}
+      {data?.dog?.name} is a {data?.dog?.breed}
     </p>
   );
 };

@@ -5,7 +5,7 @@
   "module": "dist/esm/index.js",
   "typings": "dist/dts/index.d.ts",
   "files": [
-    "dist"
+    "dist/**"
   ],
   "publishConfig": {
     "access": "public"
@@ -24,7 +24,9 @@
     "generate": "graphql-codegen --config codegen.ts",
     "prepare": "husky install",
     "version": "changeset version",
-    "release": "yarn lint && changeset publish && git push --follow-tags"
+    "ci": "pnpm run check:types && pnpm run build",
+    "prerelease": "pnpm run ci",
+    "release": "pnpm run prerelease && changeset publish && git push --follow-tags"
   },
   "peerDependencies": {
     "@apollo/client": ">=3.3.1",
@@ -32,7 +34,7 @@
     "react": ">=16"
   },
   "devDependencies": {
-    "@apollo/client": "3.3.1",
+    "@apollo/client": "3.9.5",
     "@changesets/cli": "^2.26.2",
     "@commitlint/cli": "^17.6.7",
     "@commitlint/config-conventional": "^17.6.7",
@@ -71,7 +73,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@graphql-tools/mock": "^8.5.2"
+    "@graphql-tools/mock": "^9.0.2"
   },
   "resolutions": {
     "graphql": "16.8.1"
