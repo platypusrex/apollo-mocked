@@ -15,7 +15,7 @@ dependencies:
 devDependencies:
   '@apollo/client':
     specifier: 3.9.5
-    version: 3.9.5(@types/react@17.0.59)(graphql@16.8.1)(react-dom@17.0.2)(react@17.0.2)
+    version: 3.9.5(@types/react@18.2.60)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
   '@changesets/cli':
     specifier: ^2.26.2
     version: 2.26.2
@@ -51,16 +51,16 @@ devDependencies:
     version: 0.2.27(@swc/core@1.3.70)
   '@testing-library/react':
     specifier: ^11.2.2
-    version: 11.2.2(react-dom@17.0.2)(react@17.0.2)
+    version: 11.2.2(react-dom@18.2.0)(react@18.2.0)
   '@types/jest':
     specifier: ^29.4.0
     version: 29.4.0
   '@types/react':
-    specifier: ^17.0.59
-    version: 17.0.59
+    specifier: ^18.2.60
+    version: 18.2.60
   '@types/react-dom':
-    specifier: ^17.0.20
-    version: 17.0.20
+    specifier: ^18.2.19
+    version: 18.2.19
   '@typescript-eslint/eslint-plugin':
     specifier: ^5.53.0
     version: 5.53.0(@typescript-eslint/parser@5.53.0)(eslint@8.45.0)(typescript@4.9.5)
@@ -110,11 +110,11 @@ devDependencies:
     specifier: ^3.0.0
     version: 3.0.0
   react:
-    specifier: ^17.0.2
-    version: 17.0.2
+    specifier: ^18.2.0
+    version: 18.2.0
   react-dom:
-    specifier: ^17.0.2
-    version: 17.0.2(react@17.0.2)
+    specifier: ^18.2.0
+    version: 18.2.0(react@18.2.0)
   rimraf:
     specifier: ^5.0.0
     version: 5.0.0
@@ -140,7 +140,7 @@ packages:
       '@jridgewell/trace-mapping': 0.3.18
     dev: true
 
-  /@apollo/client@3.9.5(@types/react@17.0.59)(graphql@16.8.1)(react-dom@17.0.2)(react@17.0.2):
+  /@apollo/client@3.9.5(@types/react@18.2.60)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-7y+c8MTPU+hhTwvcGVtMMGIgWduzrvG1mz5yJMRyqYbheBkkky3Lki6ADWVSBXG1lZoOtPYvB2zDgVfKb2HSsw==}
     peerDependencies:
       graphql: ^15.0.0 || ^16.0.0
@@ -167,9 +167,9 @@ packages:
       hoist-non-react-statics: 3.3.2
       optimism: 0.18.0
       prop-types: 15.8.1
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-      rehackt: 0.0.5(@types/react@17.0.59)(react@17.0.2)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      rehackt: 0.0.5(@types/react@18.2.60)(react@18.2.0)
       response-iterator: 0.2.6
       symbol-observable: 4.0.0
       ts-invariant: 0.10.3
@@ -2693,7 +2693,7 @@ packages:
       pretty-format: 26.6.2
     dev: true
 
-  /@testing-library/react@11.2.2(react-dom@17.0.2)(react@17.0.2):
+  /@testing-library/react@11.2.2(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-jaxm0hwUjv+hzC+UFEywic7buDC9JQ1q3cDsrWVSDAPmLotfA6E6kUHlYm/zOeGCac6g48DR36tFHxl7Zb+N5A==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -2702,8 +2702,8 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.6
       '@testing-library/dom': 7.31.2
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: true
 
   /@tokenizer/token@0.3.0:
@@ -2870,14 +2870,14 @@ packages:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: true
 
-  /@types/react-dom@17.0.20:
-    resolution: {integrity: sha512-4pzIjSxDueZZ90F52mU3aPoogkHIoSIDG+oQ+wQK7Cy2B9S+MvOqY0uEA/qawKz381qrEDkvpwyt8Bm31I8sbA==}
+  /@types/react-dom@18.2.19:
+    resolution: {integrity: sha512-aZvQL6uUbIJpjZk4U8JZGbau9KDeAwMfmhyWorxgBkqDIEf6ROjRozcmPIicqsUwPUjbkDfHKgGee1Lq65APcA==}
     dependencies:
-      '@types/react': 17.0.59
+      '@types/react': 18.2.60
     dev: true
 
-  /@types/react@17.0.59:
-    resolution: {integrity: sha512-gSON5zWYIGyoBcycCE75E9+r6dCC2dHdsrVkOEiIYNU5+Q28HcBAuqvDuxHcCbMfHBHdeT5Tva/AFn3rnMKE4g==}
+  /@types/react@18.2.60:
+    resolution: {integrity: sha512-dfiPj9+k20jJrLGOu9Nf6eqxm2EyJRrq2NvwOFsfbb7sFExZ9WELPs67UImHj3Ayxg8ruTtKtNnbjaF8olPq0A==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
@@ -7621,15 +7621,14 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /react-dom@17.0.2(react@17.0.2):
-    resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
+  /react-dom@18.2.0(react@18.2.0):
+    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
-      react: 17.0.2
+      react: ^18.2.0
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
-      react: 17.0.2
-      scheduler: 0.20.2
+      react: 18.2.0
+      scheduler: 0.23.0
     dev: true
 
   /react-is@16.13.1:
@@ -7644,12 +7643,11 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: true
 
-  /react@17.0.2:
-    resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
+  /react@18.2.0:
+    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
     dev: true
 
   /read-pkg-up@7.0.1:
@@ -7730,7 +7728,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /rehackt@0.0.5(@types/react@17.0.59)(react@17.0.2):
+  /rehackt@0.0.5(@types/react@18.2.60)(react@18.2.0):
     resolution: {integrity: sha512-BI1rV+miEkaHj8zd2n+gaMgzu/fKz7BGlb4zZ6HAiY9adDmJMkaDcmuXlJFv0eyKUob+oszs3/2gdnXUrzx2Tg==}
     peerDependencies:
       '@types/react': '*'
@@ -7741,8 +7739,8 @@ packages:
       react:
         optional: true
     dependencies:
-      '@types/react': 17.0.59
-      react: 17.0.2
+      '@types/react': 18.2.60
+      react: 18.2.0
     dev: true
 
   /relay-runtime@12.0.0:
@@ -7936,11 +7934,10 @@ packages:
       xmlchars: 2.2.0
     dev: true
 
-  /scheduler@0.20.2:
-    resolution: {integrity: sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==}
+  /scheduler@0.23.0:
+    resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
     dev: true
 
   /scuid@1.1.0:
