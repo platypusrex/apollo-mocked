@@ -4,6 +4,7 @@ import { createLoadingLink } from './utils';
 
 export interface ApolloLoadingProviderProps {
   Provider?: React.ComponentType<any>;
+  children?: React.ReactNode;
 }
 
 export const ApolloLoadingProvider: React.FC<ApolloLoadingProviderProps> = ({

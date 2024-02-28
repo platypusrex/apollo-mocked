@@ -4,6 +4,7 @@ import { CreateApolloClient, createApolloClient } from './utils';
 
 export interface ApolloMockedProviderProps extends CreateApolloClient {
   Provider?: React.ComponentType<any>;
+  children?: React.ReactNode;
 }
 
 export const ApolloMockedProvider: React.FC<ApolloMockedProviderProps> = ({
