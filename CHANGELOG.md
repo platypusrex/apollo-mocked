@@ -1,5 +1,11 @@
 # apollo-mocked
 
+## 2.3.0
+
+### Minor Changes
+
+- 0062711: Adds support for React 18.
+
 ## 2.2.1
 
 ### Patch Changes
