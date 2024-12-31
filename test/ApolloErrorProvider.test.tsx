@@ -9,17 +9,19 @@ describe('ApolloErrorProvider', () => {
     render(
       <ApolloErrorProvider>
         <Dog />
-      </ApolloErrorProvider>
+      </ApolloErrorProvider>,
     );
 
-    expect(await screen.findByText('Unspecified error from ErrorProvider.')).toBeTruthy();
+    expect(
+      await screen.findByText('Unspecified error from ErrorProvider.'),
+    ).toBeTruthy();
   });
 
   it('should render a graphql error message with provided string', async () => {
     render(
       <ApolloErrorProvider graphQLError="Dog not found.">
         <Dog />
-      </ApolloErrorProvider>
+      </ApolloErrorProvider>,
     );
 
     expect(await screen.findByText('Dog not found.')).toBeTruthy();
@@ -29,7 +31,7 @@ describe('ApolloErrorProvider', () => {
     render(
       <ApolloErrorProvider graphQLError={[new GraphQLError('Dog not found.')]}>
         <Dog />
-      </ApolloErrorProvider>
+      </ApolloErrorProvider>,
     );
 
     expect(await screen.findByText('Dog not found.')).toBeTruthy();

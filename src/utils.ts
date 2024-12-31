@@ -39,7 +39,7 @@ function createMockLink(
   schema: GraphQLSchema,
   rootValue = {},
   context = {},
-  options: CreateLinkOptions = {}
+  options: CreateLinkOptions = {},
 ): ApolloLink {
   const delayMs = options?.delay ?? 0;
 
@@ -80,7 +80,9 @@ function createMockLink(
   });
 }
 
-export function createErrorLink(graphQLError?: string | GraphQLError[]): ApolloLink {
+export function createErrorLink(
+  graphQLError?: string | GraphQLError[],
+): ApolloLink {
   return new ApolloLink(() => {
     return new Observable((observer) => {
       delay(100)
@@ -132,17 +134,22 @@ export function createApolloClient({
 
   if (!Array.isArray(mocks)) {
     const apolloLinkOptions: CreateLinkOptions = {};
-    const { resolvers, introspectionResult, rootValue, context } = mocks as LinkSchemaProps;
+    const { resolvers, introspectionResult, rootValue, context } =
+      mocks as LinkSchemaProps;
 
     const schema = buildClientSchema(introspectionResult);
-    // @ts-ignore
     const schemaWithMocks = addMocksToSchema({ schema, resolvers });
 
     if (delay) {
       apolloLinkOptions.delay = delay;
     }
 
-    mockLink = createMockLink(schemaWithMocks, rootValue, context, apolloLinkOptions);
+    mockLink = createMockLink(
+      schemaWithMocks,
+      rootValue,
+      context,
+      apolloLinkOptions,
+    );
   } else {
     mockLink = new MockLink(mocks as MockedResponse[], addTypename);
   }
@@ -150,16 +157,20 @@ export function createApolloClient({
   const cache = new InMemoryCache({ ...cacheOptions, addTypename });
 
   return new ApolloClient({
-    // @ts-ignore
+    // @ts-expect-error
     cache,
     link: ApolloLink.from([...links(cache), mockLink]),
     ...clientOptions,
   });
 }
 
-export function createGraphQLErrorMessage(graphQLError?: string | GraphQLError[]): GraphQLError[] {
+export function createGraphQLErrorMessage(
+  graphQLError?: string | GraphQLError[],
+): GraphQLError[] {
   if (graphQLError) {
-    return typeof graphQLError === 'string' ? [new GraphQLError(graphQLError)] : graphQLError;
+    return typeof graphQLError === 'string'
+      ? [new GraphQLError(graphQLError)]
+      : graphQLError;
   }
 
   return [new GraphQLError('Unspecified error from ErrorProvider.')];
@@ -186,7 +197,7 @@ export function createMocks<
     graphqlErrors,
     error,
     delay = 0,
-  }: CreateMocksOptions<TData, TVariables>
+  }: CreateMocksOptions<TData, TVariables>,
 ): MockedResponse[] {
   return [
     {
@@ -198,7 +209,9 @@ export function createMocks<
         ? {
             result: {
               data,
-              ...(graphqlErrors ? { errors: createGraphQLErrorMessage(graphqlErrors) } : {}),
+              ...(graphqlErrors
+                ? { errors: createGraphQLErrorMessage(graphqlErrors) }
+                : {}),
             },
           }
         : {}),

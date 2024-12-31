@@ -6,11 +6,8 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "jsx": "react",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
-    "module": "commonjs",
+    "lib": ["dom", "esnext"],
+    "module": "ESNext",
     "moduleResolution": "node",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
@@ -23,15 +20,9 @@
     "strict": true,
     "target": "esnext",
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "types": ["vitest/globals"]
   },
-  "exclude": [
-    "dist",
-    "node_modules"
-  ],
-  "include": [
-    "src/**/*",
-    "test/**/*",
-    "test/introspection.json"
-  ]
+  "exclude": ["dist", "node_modules"],
+  "include": ["src/**/*", "test/**/*", "test/generated/introspection.json"]
 }
