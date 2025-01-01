@@ -1,5 +1,11 @@
 # apollo-mocked
 
+## 2.4.1
+
+### Patch Changes
+
+- ea93aea: build(deps): bump dset from 3.1.2 to 3.1.4
+
 ## 2.4.0
 
 ### Minor Changes
