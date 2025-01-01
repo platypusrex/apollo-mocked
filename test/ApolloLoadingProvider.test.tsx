@@ -8,7 +8,7 @@ describe('ApolloLoadingProvider', () => {
     render(
       <ApolloLoadingProvider>
         <Dog />
-      </ApolloLoadingProvider>
+      </ApolloLoadingProvider>,
     );
 
     expect(screen.getByText('Loading...')).toBeTruthy();

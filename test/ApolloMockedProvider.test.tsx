@@ -8,8 +8,8 @@ import { Dog } from './Dog';
 import { Human } from './Human';
 import { NetworkError } from './NetworkError';
 import { HUMAN_QUERY } from './gql/humanQuery';
-import introspectionResult from './introspection.json';
-import { HumanQuery, HumanQueryVariables } from './generated';
+import introspectionResult from './generated/introspection.json';
+import { HumanQuery, HumanQueryVariables } from './generated/types';
 
 const name = 'Buck';
 const breed = 'bulldog';
@@ -26,10 +26,12 @@ describe('ApolloMockedProvider', () => {
       render(
         <ApolloMockedProvider mocks={mocks}>
           <Human />
-        </ApolloMockedProvider>
+        </ApolloMockedProvider>,
       );
 
-      expect(await screen.findByText(`${name} is ${age} years old.`)).toBeTruthy();
+      expect(
+        await screen.findByText(`${name} is ${age} years old.`),
+      ).toBeTruthy();
     });
   });
 
@@ -47,7 +49,7 @@ describe('ApolloMockedProvider', () => {
           }}
         >
           <Dog />
-        </ApolloMockedProvider>
+        </ApolloMockedProvider>,
       );
 
       expect(await screen.findByText(`${name} is a ${breed}`)).toBeTruthy();
@@ -69,7 +71,7 @@ describe('ApolloMockedProvider', () => {
           }}
         >
           <Dog />
-        </ApolloMockedProvider>
+        </ApolloMockedProvider>,
       );
 
       expect(await screen.findByText('Dog not found.')).toBeTruthy();
@@ -91,7 +93,7 @@ describe('ApolloMockedProvider', () => {
           }}
         >
           <NetworkError />
-        </ApolloMockedProvider>
+        </ApolloMockedProvider>,
       );
 
       expect(await screen.findByText('service unavailable')).toBeTruthy();
