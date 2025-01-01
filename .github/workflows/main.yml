@@ -36,6 +36,9 @@ jobs:
       - name: Format
         run: pnpm format
 
+      - name: Check types
+        run: pnpm check:types
+
       - name: Test
         run: pnpm test
 
