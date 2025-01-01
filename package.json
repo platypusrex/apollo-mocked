@@ -22,7 +22,9 @@
     },
     "./package.json": "./package.json"
   },
-  "files": ["dist/**"],
+  "files": [
+    "dist/**"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -40,9 +42,7 @@
     "generate": "graphql-codegen-esm --config test/codegen.cjs",
     "prepare": "husky",
     "version": "changeset version",
-    "ci": "pnpm run check:types && pnpm run build",
-    "prerelease": "pnpm run ci",
-    "release": "pnpm run prerelease && changeset publish && git push --follow-tags"
+    "release": "pnpm build && changeset publish && git push --follow-tags"
   },
   "peerDependencies": {
     "@apollo/client": ">=3.3.1",

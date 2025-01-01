@@ -16,7 +16,7 @@
       "node_modules/**",
       "coverage/**",
       "dist/**",
-      "pslint.config.mjs",
+      "package.json",
       "**/generated/**"
     ]
   },
@@ -50,7 +50,7 @@
       "node_modules/**",
       "coverage/**",
       "dist/**",
-      "pslint.config.mjs",
+      "package.json",
       "**/generated/**"
     ]
   },
